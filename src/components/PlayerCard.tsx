@@ -23,22 +23,27 @@ const PlayerCard = ({
 }) => {
   const renderSeasonStats = (stat: any, title: string) => {
     return (
-      <Table color="white">
-        <Thead>
-          <Tr>
-            <Th>PTS</Th>
-            <Th>TRB</Th>
-            <Th>AST</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          <Tr>
-            <Td>{stat.pts}</Td>
-            <Td>{stat.reb}</Td>
-            <Td>{stat.assist}</Td>
-          </Tr>
-        </Tbody>
-      </Table>
+      <Box marginBottom={2}>
+        <Heading textAlign={"center"} fontSize={17}>
+          {title}
+        </Heading>
+        <Table color="white" size="sm">
+          <Thead>
+            <Tr>
+              <Th>PTS</Th>
+              <Th>TRB</Th>
+              <Th>AST</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td>{stat.pts}</Td>
+              <Td>{stat.reb}</Td>
+              <Td>{stat.assist}</Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </Box>
     );
   };
 
@@ -53,14 +58,11 @@ const PlayerCard = ({
     return fullName.join(" ");
   };
   return (
-    <Box
-      w={"50%"}
-      justifyContent={"center"}
-      display={"flex"}
-      flexDir={"column"}
-    >
-      <Heading color={"white"}>{capitalizePlayerName(playerName)}</Heading>
-      <Image alt="player pic" src={pic} w={210} />
+    <Box justifyContent={"center"} display={"flex"} flexDir={"column"}>
+      <Heading color={"white"} textAlign={"center"}>
+        {capitalizePlayerName(playerName)}
+      </Heading>
+      <Image alt="player pic" src={pic} w={90} m="0 auto" />
       {renderSeasonStats(seasonStats.regularSeason, "season")}
       {renderSeasonStats(seasonStats.last5, "last 5 games")}
       {renderSeasonStats(seasonStats.last5Opp, "last 5 games against")}
