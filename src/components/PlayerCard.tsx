@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Heading,
@@ -6,10 +6,10 @@ import {
   Table,
   Thead,
   Tbody,
+  Flex,
   Tr,
   Th,
   Td,
-  TableCaption,
 } from "@chakra-ui/react";
 
 const PlayerCard = ({
@@ -21,32 +21,6 @@ const PlayerCard = ({
   seasonStats: any;
   playerName: string;
 }) => {
-  const renderSeasonStats = (stat: any, title: string) => {
-    return (
-      <Box marginBottom={2}>
-        <Heading textAlign={"center"} fontSize={17}>
-          {title}
-        </Heading>
-        <Table color="white" size="sm">
-          <Thead>
-            <Tr>
-              <Th>PTS</Th>
-              <Th>TRB</Th>
-              <Th>AST</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>{stat.pts}</Td>
-              <Td>{stat.reb}</Td>
-              <Td>{stat.assist}</Td>
-            </Tr>
-          </Tbody>
-        </Table>
-      </Box>
-    );
-  };
-
   const capitalizePlayerName = (name: string) => {
     let splitted = name.split(" ");
     let fullName: any = [];
@@ -57,15 +31,46 @@ const PlayerCard = ({
     });
     return fullName.join(" ");
   };
+
+  const renderStats = (title: string, stat: any) => {
+    return (
+      <Tr>
+        <Th color="gray">{title}</Th>
+        <Td textAlign={"center"}>{stat.pts}</Td>
+        <Td textAlign={"center"}>{stat.assist}</Td>
+        <Td textAlign={"center"}>{stat.reb}</Td>
+      </Tr>
+    );
+  };
   return (
     <Box justifyContent={"center"} display={"flex"} flexDir={"column"}>
-      <Heading color={"white"} textAlign={"center"}>
-        {capitalizePlayerName(playerName)}
-      </Heading>
-      <Image alt="player pic" src={pic} w={90} m="0 auto" />
-      {renderSeasonStats(seasonStats.regularSeason, "season")}
-      {renderSeasonStats(seasonStats.last5, "last 5 games")}
-      {renderSeasonStats(seasonStats.last5Opp, "last 5 games against")}
+      <Flex flexDir={"column"}>
+        <Heading color={"white"} textAlign={"center"}>
+          {capitalizePlayerName(playerName)}
+        </Heading>
+        <Image alt="player pic" src={pic} w={40} m="0 auto" />
+      </Flex>
+      <Table color="white" size={"sm"}>
+        <Thead>
+          <Tr color="gray">
+            <Th> </Th>
+            <Th textAlign={"center"} color="gray">
+              PTS
+            </Th>
+            <Th textAlign={"center"} color="gray">
+              AST
+            </Th>
+            <Th textAlign={"center"} color="gray">
+              REB
+            </Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {renderStats("season", seasonStats.regularSeason)}
+          {renderStats("last 5", seasonStats.last5)}
+          {renderStats("last 5 vs", seasonStats.last5Opp)}
+        </Tbody>
+      </Table>
     </Box>
   );
 };

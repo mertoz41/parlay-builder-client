@@ -16,11 +16,11 @@ const Header = ({
 }) => {
   return (
     <Flex
-      justifyContent={"space-between"}
-      padding={5}
-      borderBottomWidth={0.1}
-      borderBottomColor={"white"}
+    justifyContent={"center"}
     >
+      <Heading alignSelf={"center"} color={"white"} marginRight={10}>
+        NBA PARLAY BUILDER
+      </Heading>
       <PlayerSearch
         setSeasonStats={setSeasonStats}
         setLast5={setLast5}
@@ -28,9 +28,6 @@ const Header = ({
         setPlayerName={setPlayerName}
         setOpp5={setOpp5}
       />
-      <Heading alignSelf={"center"} color={"white"}>
-        NBA PARLAY BUILDER
-      </Heading>
     </Flex>
   );
 };
