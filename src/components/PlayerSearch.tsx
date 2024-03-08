@@ -22,7 +22,7 @@ const PlayerSearch = ({
     e.preventDefault();
     axios
       .post(
-        "http://127.0.0.1:8000/parlaybuilder/",
+        "https://parlay-builder-7466f23832fc.herokuapp.com/parlaybuilder",
         {
           player: fullName,
         },
