@@ -8,12 +8,14 @@ const PlayerSearch = ({
   setPlayerPic,
   setPlayerName,
   setOpp5,
+  setNextOpponent,
 }: {
   setSeasonStats: any;
   setOpp5: any;
   setLast5: any;
   setPlayerPic: any;
   setPlayerName: any;
+  setNextOpponent: any;
 }) => {
   const [fullName, setFullName] = useState("");
   const searchPlayer = (e: any) => {
@@ -30,6 +32,7 @@ const PlayerSearch = ({
         }
       )
       .then((resp) => {
+        setNextOpponent(resp.data.next_opponent);
         setOpp5(resp.data.last5opp);
         setLast5(resp.data.last5);
         getSeasonStats(resp.data);

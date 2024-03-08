@@ -16,10 +16,12 @@ const PlayerCard = ({
   pic,
   seasonStats,
   playerName,
+  nextOpponent,
 }: {
   pic: string;
   seasonStats: any;
   playerName: string;
+  nextOpponent: string;
 }) => {
   const capitalizePlayerName = (name: string) => {
     let splitted = name.split(" ");
@@ -68,7 +70,7 @@ const PlayerCard = ({
         <Tbody>
           {renderStats("season", seasonStats.regularSeason)}
           {renderStats("last 5", seasonStats.last5)}
-          {renderStats("last 5 vs", seasonStats.last5Opp)}
+          {renderStats(`last 5 vs ${nextOpponent}`, seasonStats.last5Opp)}
         </Tbody>
       </Table>
     </Box>

@@ -35,7 +35,7 @@ const Stats = ({ list, title }: { list: any; title: string }) => {
   };
 
   return (
-    <Box borderWidth={0.1} borderRadius={20} padding={3}>
+    <Box borderWidth={0.1} borderRadius={20} padding={3} overflowX={"auto"}>
       <Heading textAlign={"center"} color="white">
         {title}
       </Heading>

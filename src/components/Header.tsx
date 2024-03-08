@@ -7,18 +7,22 @@ const Header = ({
   setPlayerPic,
   setPlayerName,
   setOpp5,
+  setNextOpponent,
 }: {
   setSeasonStats: any;
   setLast5: any;
   setPlayerPic: any;
   setPlayerName: any;
   setOpp5: any;
+  setNextOpponent: any;
 }) => {
   return (
-    <Flex
-    justifyContent={"center"}
-    >
-      <Heading alignSelf={"center"} color={"white"} marginRight={10}>
+    <Flex justifyContent={"center"} flexDir={{ base: "column", lg: "row" }}>
+      <Heading
+        alignSelf={"center"}
+        color={"white"}
+        marginRight={{ base: 0, lg: 10 }}
+      >
         NBA PARLAY BUILDER
       </Heading>
       <PlayerSearch
@@ -27,6 +31,7 @@ const Header = ({
         setPlayerPic={setPlayerPic}
         setPlayerName={setPlayerName}
         setOpp5={setOpp5}
+        setNextOpponent={setNextOpponent}
       />
     </Flex>
   );
