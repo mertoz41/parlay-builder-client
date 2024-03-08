@@ -28,7 +28,7 @@ const PlayerSearch = ({
         },
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+          // withCredentials: true,
         }
       )
       .then((resp) => {
