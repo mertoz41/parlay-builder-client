@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Input, Button } from "@chakra-ui/react";
+import { Flex, Input, Button, Spinner } from "@chakra-ui/react";
 import axios from "axios";
 
 const PlayerSearch = ({
@@ -18,26 +18,36 @@ const PlayerSearch = ({
   setNextOpponent: any;
 }) => {
   const [fullName, setFullName] = useState("");
+  const [loading, setLoading] = useState(false);
   const searchPlayer = (e: any) => {
     e.preventDefault();
+    if (fullName.length < 5){
+      return alert("Type first name and last name")
+    }
+    setLoading(true);
     axios
       .post(
+        // "http://localhost:8000/parlaybuilder/",
         "https://parlay-builder-7466f23832fc.herokuapp.com/parlaybuilder/",
         {
-          player: fullName,
+          player: fullName.toLowerCase(),
         },
         {
           headers: { "Content-Type": "application/json" },
-          // withCredentials: true,
         }
       )
       .then((resp) => {
-        setNextOpponent(resp.data.next_opponent);
-        setOpp5(resp.data.last5opp);
-        setLast5(resp.data.last5);
-        getSeasonStats(resp.data);
-        setPlayerPic(resp.data.img);
-        setPlayerName(fullName);
+        if (resp.data.error) {
+          alert(resp.data.error);
+        } else {
+          setNextOpponent(resp.data.next_opponent);
+          setOpp5(resp.data.last5opp);
+          setLast5(resp.data.last5);
+          getSeasonStats(resp.data);
+          setPlayerPic(resp.data.img);
+          setPlayerName(fullName);
+        }
+        setLoading(false);
       });
   };
 
@@ -68,13 +78,20 @@ const PlayerSearch = ({
       <Input
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
-        placeholder="Player Name"
+        placeholder="Player Full Name"
+        color="white"
+        fontSize={24}
         bg="#5f618d"
       />
-
-      <Button paddingX={5} onClick={(e) => searchPlayer(e)} marginLeft={5}>
-        Get stats
-      </Button>
+      <Flex w={200} justifyContent={"center"}>
+        {loading ? (
+          <Spinner alignSelf={"center"} color="white" size="lg" />
+        ) : (
+          <Button paddingX={5} onClick={(e) => searchPlayer(e)} marginLeft={5}>
+            Get stats
+          </Button>
+        )}
+      </Flex>
     </Flex>
   );
 };

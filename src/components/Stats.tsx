@@ -35,10 +35,12 @@ const Stats = ({ list, title }: { list: any; title: string }) => {
   };
 
   return (
-    <Box borderWidth={0.1} borderRadius={20} padding={3} overflowX={"auto"}>
+    <Box borderWidth={0.1} borderRadius={20} padding={3}>
       <Heading textAlign={"center"} color="white">
         {title}
       </Heading>
+      <Box  overflowX={"auto"}>
+
       <Table size={"sm"} variant="simple" color="white">
         <Thead>
           <Tr>
@@ -57,6 +59,7 @@ const Stats = ({ list, title }: { list: any; title: string }) => {
         </Thead>
         <Tbody>{[0, 1, 2, 3, 4].map((i) => tableRow(i))}</Tbody>
       </Table>
+      </Box>
     </Box>
   );
 };
