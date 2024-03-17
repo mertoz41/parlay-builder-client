@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Heading,
@@ -11,7 +11,8 @@ import {
   Th,
   Td,
 } from "@chakra-ui/react";
-
+import CloseButton from "./CloseButton";
+import { Context } from "../context";
 const PlayerCard = ({
   pic,
   seasonStats,
@@ -23,6 +24,7 @@ const PlayerCard = ({
   playerName: string;
   nextOpponent: string;
 }) => {
+  const {setPlayerData} = useContext(Context)
   const capitalizePlayerName = (name: string) => {
     let splitted = name.split(" ");
     let fullName: any = [];
@@ -45,13 +47,14 @@ const PlayerCard = ({
     );
   };
   return (
-    <Box justifyContent={"center"} display={"flex"} flexDir={"column"}>
-      <Flex flexDir={"column"}>
-        <Heading color={"white"} textAlign={"center"}>
-          {capitalizePlayerName(playerName)}
-        </Heading>
-        <Image alt="player pic" src={pic} w={40} m="0 auto" />
-      </Flex>
+    <Flex h="100%" flexDir={"column"}>
+      <Heading color={"white"} textAlign={"center"}>
+        {capitalizePlayerName(playerName)}
+      </Heading>
+      <Box position={"absolute"} left={0}>
+        <CloseButton action={() => setPlayerData(null)} />
+      </Box>
+      <Image alt="player pic" src={pic} w={40} m="0 auto" />
       <Table color="white" size={"sm"}>
         <Thead>
           <Tr color="gray">
@@ -73,7 +76,7 @@ const PlayerCard = ({
           {renderStats(`last 5 vs ${nextOpponent}`, seasonStats.last5Opp)}
         </Tbody>
       </Table>
-    </Box>
+    </Flex>
   );
 };
 

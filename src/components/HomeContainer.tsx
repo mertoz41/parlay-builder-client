@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import TodaysGames from "./TodaysGames";
 import axios from "axios";
 import Stats from "./Stats";
-import { GridItem, Heading, Flex, CloseButton, Grid } from "@chakra-ui/react";
+import { GridItem, Heading, Spinner, Flex } from "@chakra-ui/react";
+import CloseButton from "./CloseButton";
 const HomeContainer = () => {
   useEffect(() => {
     getGames();
@@ -29,7 +30,7 @@ const HomeContainer = () => {
   return (
     <>
       <GridItem
-        rowSpan={{ base: 5, lg: 4 }}
+        rowSpan={{ base: 8, lg: 4 }}
         colSpan={{ base: 8, lg: 8 }}
         overflow={"auto"}
       >
@@ -41,26 +42,19 @@ const HomeContainer = () => {
           />
         </Flex>
       </GridItem>
-      <GridItem colSpan={{ base: 8, lg: 8 }} rowSpan={{ base: 5, lg: 1 }}>
-        <Flex justify={"center"}>
-          <Heading color={"white"}>
+      <GridItem colSpan={{ base: 8, lg: 8 }} rowSpan={{ base: 1, lg: 1 }} >
+        <Flex justify={"center"} alignItems={"center"}>
+          <Heading color={"white"} textAlign={"center"} alignSelf={"flex-end"}>
             {selectedTeam ? `${teamName} roster` : "MVP Ladder"}
           </Heading>
-          {selectedTeam ? (
-            <CloseButton
-              onClick={() => setSelectedTeam(null)}
-              size={"lg"}
-      
-              alignSelf={"center"}
-              marginLeft={5}
-              color={"white"}
-              backgroundColor={"#4F5175"}
-            />
-          ) : null}
+
+          {/* <Spinner alignSelf={"center"} position={"absolute"} color="white" size="lg" /> */}
+
+          {selectedTeam ? <CloseButton action={setSelectedTeam} /> : null}
         </Flex>
       </GridItem>
       <GridItem
-        rowSpan={{ base: 1, lg: 4 }}
+        rowSpan={{ base: 7, lg: 4 }}
         colSpan={{ base: 8, lg: 8 }}
         overflow={"auto"}
       >

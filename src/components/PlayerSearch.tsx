@@ -27,14 +27,18 @@ const PlayerSearch = ({}) => {
     setLoading(false);
   };
   return (
-    <Flex>
+    <Flex flex={1}>
       <Input
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
         placeholder="Player Full Name"
         color="white"
         fontSize={24}
-        bg="#5f618d"
+        borderRadius={0}
+        bg="black"
+        borderColor={"transparent"}
+        borderBottomWidth={1}
+        borderBottomColor="white"
       />
       <Flex w={200} justifyContent={"center"}>
         {loading ? (

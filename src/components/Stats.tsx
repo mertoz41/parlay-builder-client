@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Context } from "../context";
 import axios from "axios";
-import { getPlayerStats } from "../utils";
+import { getSeasonStats } from "../utils";
 const Stats = ({
   list,
   title,
@@ -24,15 +24,33 @@ const Stats = ({
 }) => {
   const { setPlayerData } = useContext(Context);
   const getStats = async (name: string) => {
-    let stats = await getPlayerStats(name.toLowerCase());
-    if (stats.error) {
-      alert(stats.error);
-    } else {
-      setPlayerData({
-        ...stats,
-        fullName: name,
+    axios
+      .post(
+        "http://localhost:8000/parlaybuilder/",
+        // "https://parlay-builder-7466f23832fc.herokuapp.com/parlaybuilder/",
+        {
+          player: name.toLowerCase(),
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+      .then((resp) => {
+        setPlayerData({
+          ...resp.data,
+          seasonStats: getSeasonStats(resp.data),
+          fullName: name,
+        });
       });
-    }
+    // let stats = await getPlayerStats(name.toLowerCase());
+    // if (stats.error) {
+    //   alert(stats.error);
+    // } else {
+    //   setPlayerData({
+    //     ...stats,
+    //     fullName: name,
+    //   });
+    // }
   };
   const tableRow = (i: number) => {
     return (
@@ -43,6 +61,7 @@ const Stats = ({
             textAlign={"center"}
             onClick={() => getStats(list.Player[i])}
             cursor={"pointer"}
+            _hover={{textDecoration: "underline"}}
           >
             {list.Player[i]} {list.Team ? list.Team[i] : null}
           </Td>

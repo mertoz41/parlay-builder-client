@@ -38,7 +38,7 @@ const TodaysGames = ({
     return (
       <Flex
         key={i}
-        w="20%"
+        w={{base: "100%", lg: "20%"}}
         padding={5}
         borderBottomWidth={0.25}
         justifyContent={"space-around"}
@@ -58,7 +58,7 @@ const TodaysGames = ({
   };
 
   return (
-    <Flex flexWrap={"wrap"} w="100%" m="0 auto">
+    <Flex flexWrap={"wrap"} flexDirection={{base: "column", lg: "row"}} w="100%" m="0 auto">
       {games.length
         ? games.map((game: any, i: number) => renderRow(game, i))
         : null}
