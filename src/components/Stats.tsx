@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Table,
   Thead,
@@ -6,13 +6,12 @@ import {
   Tr,
   Heading,
   Th,
+  Spinner,
   Td,
   Box,
-  List,
 } from "@chakra-ui/react";
 import { Context } from "../context";
-import axios from "axios";
-import { getSeasonStats } from "../utils";
+import { getPlayerStats } from "../utils";
 const Stats = ({
   list,
   title,
@@ -23,34 +22,20 @@ const Stats = ({
   rowNumber: any;
 }) => {
   const { setPlayerData } = useContext(Context);
+  const [loading, setLoading] = useState<boolean>(false);
   const getStats = async (name: string) => {
-    axios
-      .post(
-        "http://localhost:8000/parlaybuilder/",
-        // "https://parlay-builder-7466f23832fc.herokuapp.com/parlaybuilder/",
-        {
-          player: name.toLowerCase(),
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      )
-      .then((resp) => {
-        setPlayerData({
-          ...resp.data,
-          seasonStats: getSeasonStats(resp.data),
-          fullName: name,
-        });
+    setLoading(true);
+    let playerName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    let stats = await getPlayerStats(playerName.toLowerCase());
+    if (stats.error) {
+      alert(stats.error);
+    } else {
+      setPlayerData({
+        ...stats,
+        fullName: name,
       });
-    // let stats = await getPlayerStats(name.toLowerCase());
-    // if (stats.error) {
-    //   alert(stats.error);
-    // } else {
-    //   setPlayerData({
-    //     ...stats,
-    //     fullName: name,
-    //   });
-    // }
+    }
+    setLoading(false);
   };
   const tableRow = (i: number) => {
     return (
@@ -61,7 +46,7 @@ const Stats = ({
             textAlign={"center"}
             onClick={() => getStats(list.Player[i])}
             cursor={"pointer"}
-            _hover={{textDecoration: "underline"}}
+            _hover={{ textDecoration: "underline" }}
           >
             {list.Player[i]} {list.Team ? list.Team[i] : null}
           </Td>
@@ -95,6 +80,15 @@ const Stats = ({
         <Heading textAlign={"center"} color="white">
           {title}
         </Heading>
+      ) : null}
+      {loading ? (
+        <Spinner
+          position={"absolute"}
+          m="0 auto"
+          alignSelf={"center"}
+          color="white"
+          size="sm"
+        />
       ) : null}
       <Box overflowX={"auto"}>
         <Table size={"sm"} variant="simple" color="white">

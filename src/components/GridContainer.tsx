@@ -12,9 +12,9 @@ const GridContainer = () => {
       <Grid
         h="100vh"
         w="100vw"
-        templateRows="repeat(9, 1fr)"
+        templateRows="repeat(11, 1fr)"
         templateColumns="repeat(8, 1fr)"
-        padding={4}
+        padding={1}
       >
         <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
           <Header />

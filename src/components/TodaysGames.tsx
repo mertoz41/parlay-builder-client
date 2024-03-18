@@ -1,6 +1,7 @@
 import React from "react";
-import { Box, Heading, Text, Image, Flex } from "@chakra-ui/react";
+import { Box, Spinner, Text, Image, Flex } from "@chakra-ui/react";
 import axios from "axios";
+import { API_ROOT } from "../utils";
 const TodaysGames = ({
   games,
   setSelectedTeam,
@@ -22,14 +23,9 @@ const TodaysGames = ({
 
     const getTeamPlayers = (team: string) => {
       axios
-        .get(
-          `http://localhost:8000/parlaybuilder/get_team/${team}`,
-          //   "https://parlay-builder-7466f23832fc.herokuapp.com/parlaybuilder/",
-
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        )
+        .get(`${API_ROOT}get_team/${team}`, {
+          headers: { "Content-Type": "application/json" },
+        })
         .then((resp: any) => {
           setTeamName(resp.data.team_name);
           setSelectedTeam(resp.data.roster);
@@ -38,7 +34,7 @@ const TodaysGames = ({
     return (
       <Flex
         key={i}
-        w={{base: "100%", lg: "20%"}}
+        w={{ base: "100%", lg: "20%" }}
         padding={5}
         borderBottomWidth={0.25}
         justifyContent={"space-around"}
@@ -58,10 +54,23 @@ const TodaysGames = ({
   };
 
   return (
-    <Flex flexWrap={"wrap"} flexDirection={{base: "column", lg: "row"}} w="100%" m="0 auto">
-      {games.length
-        ? games.map((game: any, i: number) => renderRow(game, i))
-        : null}
+    <Flex
+      flexWrap={"wrap"}
+      flexDirection={{ base: "column", lg: "row" }}
+      w="100%"
+      m="0 auto"
+    >
+      {games.length ? (
+        games.map((game: any, i: number) => renderRow(game, i))
+      ) : (
+        <Spinner
+          alignSelf={"center"}
+          m="0 auto"
+          size="xl"
+          marginTop={10}
+          color="white"
+        />
+      )}
     </Flex>
   );
 };

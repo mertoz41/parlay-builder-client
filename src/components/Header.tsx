@@ -9,24 +9,12 @@ const Header = () => {
       justifyContent={"space-between"}
       flexDir={{ base: "column", lg: "row" }}
     >
-      <Flex flex={1} justify={{base: "center", lg: "normal"}}>
-        <Heading
-          alignSelf={"center"}
-          color={"white"}
-          
-          // marginRight={{ base: 0, lg: 10 }}
-          backgroundColor={"black"}
-        >
+      <Flex flex={1} justify={{ base: "center", lg: "normal" }}>
+        <Heading alignSelf={"center"} color={"white"} backgroundColor={"black"}>
           NBA PARLAY BUILDER
         </Heading>
       </Flex>
-      <Flex flex={1} justifyContent={"center"}>
-        {playerData ? null : (
-          <Heading color="white" textAlign={"center"}>
-            Todays Games
-          </Heading>
-        )}
-      </Flex>
+
       <PlayerSearch />
     </Flex>
   );

@@ -27,7 +27,7 @@ const PlayerSearch = ({}) => {
     setLoading(false);
   };
   return (
-    <Flex flex={1}>
+    <Flex flex={1} marginY={{base: 5, lg: 0}}>
       <Input
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
@@ -35,7 +35,6 @@ const PlayerSearch = ({}) => {
         color="white"
         fontSize={24}
         borderRadius={0}
-        bg="black"
         borderColor={"transparent"}
         borderBottomWidth={1}
         borderBottomColor="white"

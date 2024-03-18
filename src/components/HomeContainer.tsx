@@ -4,6 +4,7 @@ import axios from "axios";
 import Stats from "./Stats";
 import { GridItem, Heading, Spinner, Flex } from "@chakra-ui/react";
 import CloseButton from "./CloseButton";
+import { API_ROOT } from "../utils";
 const HomeContainer = () => {
   useEffect(() => {
     getGames();
@@ -15,8 +16,7 @@ const HomeContainer = () => {
   const getGames = () => {
     axios
       .get(
-        "http://localhost:8000/parlaybuilder/",
-        //   "https://parlay-builder-7466f23832fc.herokuapp.com/parlaybuilder/",
+       API_ROOT,
 
         {
           headers: { "Content-Type": "application/json" },
@@ -29,6 +29,11 @@ const HomeContainer = () => {
   };
   return (
     <>
+      <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
+        <Heading textAlign={"center"} color={"white"}>
+          Todays Games
+        </Heading>
+      </GridItem>
       <GridItem
         rowSpan={{ base: 8, lg: 4 }}
         colSpan={{ base: 8, lg: 8 }}
@@ -42,19 +47,17 @@ const HomeContainer = () => {
           />
         </Flex>
       </GridItem>
-      <GridItem colSpan={{ base: 8, lg: 8 }} rowSpan={{ base: 1, lg: 1 }} >
+      <GridItem colSpan={{ base: 8, lg: 8 }} rowSpan={{ base: 1, lg: 1 }}>
         <Flex justify={"center"} alignItems={"center"}>
-          <Heading color={"white"} textAlign={"center"} alignSelf={"flex-end"}>
+          <Heading color={"white"} textAlign={"center"}>
             {selectedTeam ? `${teamName} roster` : "MVP Ladder"}
           </Heading>
-
-          {/* <Spinner alignSelf={"center"} position={"absolute"} color="white" size="lg" /> */}
 
           {selectedTeam ? <CloseButton action={setSelectedTeam} /> : null}
         </Flex>
       </GridItem>
       <GridItem
-        rowSpan={{ base: 7, lg: 4 }}
+        rowSpan={{ base: 7, lg: 5 }}
         colSpan={{ base: 8, lg: 8 }}
         overflow={"auto"}
       >
@@ -66,7 +69,11 @@ const HomeContainer = () => {
           />
         ) : mvpList ? (
           <Stats title={""} list={mvpList} rowNumber={[0, 1, 2, 3, 4]} />
-        ) : null}
+        ) : (
+          <Flex w={"100%"} justify={"center"} marginTop={10}>
+            <Spinner alignSelf={"center"} color="white" size="xl" />
+          </Flex>
+        )}
       </GridItem>
     </>
   );

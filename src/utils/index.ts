@@ -1,10 +1,13 @@
 import axios from "axios";
 
+// export const API_ROOT = "http://localhost:8000/parlaybuilder/";
+export const API_ROOT =
+  "https://parlay-builder-7466f23832fc.herokuapp.com/parlaybuilder/";
+
 export const getPlayerStats = async (name: string) => {
   return await axios
     .post(
-      "http://localhost:8000/parlaybuilder/",
-      // "https://parlay-builder-7466f23832fc.herokuapp.com/parlaybuilder/",
+      API_ROOT,
       {
         player: name.toLowerCase(),
       },
