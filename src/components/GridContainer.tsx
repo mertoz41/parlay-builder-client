@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Header from "./Header";
 import HomeContainer from "./HomeContainer";

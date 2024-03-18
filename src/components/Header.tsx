@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Flex, Heading } from "@chakra-ui/react";
 import PlayerSearch from "./PlayerSearch";
-import { Context } from "../context";
 const Header = () => {
-  const { playerData } = useContext(Context);
   return (
     <Flex
       justifyContent={"space-between"}
