@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 import { Flex, Input, Button, Spinner } from "@chakra-ui/react";
 import { Context } from "../context";
 import { getPlayerStats } from "../utils";
-const PlayerSearch = ({}) => {
-  const [fullName, setFullName] = useState("");
-  const [loading, setLoading] = useState(false);
+const PlayerSearch = () => {
+  const [fullName, setFullName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { setPlayerData } = useContext(Context);
   const searchPlayer = async (e: any) => {
@@ -27,7 +27,7 @@ const PlayerSearch = ({}) => {
     setLoading(false);
   };
   return (
-    <Flex flex={1} marginY={{base: 5, lg: 0}}>
+    <Flex flex={1} marginY={{ base: 5, lg: 0 }}>
       <Input
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}

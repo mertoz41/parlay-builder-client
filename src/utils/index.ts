@@ -31,15 +31,15 @@ export const getSeasonStats = (data: any) => {
     return num / 5;
   };
   let fiveAvgPts = returnAverage(data.last5.PTS);
-  let oppAvgPts = returnAverage(data.last5opp.PTS);
+  // let oppAvgPts = returnAverage(data.last5opp.PTS);
   let fiveAvgReb = returnAverage(data.last5.REB);
-  let oppAvgReb = returnAverage(data.last5opp.REB);
+  // let oppAvgReb = returnAverage(data.last5opp.REB);
   let fiveAvgAst = returnAverage(data.last5.AST);
-  let oppAvgAst = returnAverage(data.last5opp.AST);
+  // let oppAvgAst = returnAverage(data.last5opp.AST);
   let playerAverages = {
     regularSeason: data.season_stats,
     last5: { pts: fiveAvgPts, reb: fiveAvgReb, assist: fiveAvgAst },
-    last5Opp: { pts: oppAvgPts, reb: oppAvgReb, assist: oppAvgAst },
+    // last5Opp: { pts: oppAvgPts, reb: oppAvgReb, assist: oppAvgAst },
   };
   return playerAverages;
 };

@@ -5,19 +5,11 @@ import Stats from "./Stats";
 import { Context } from "../context";
 const PlayerContainer = () => {
   const { playerData } = useContext(Context);
-  const { seasonStats, img, next_opponent, last5, last5opp, fullName } =
-    playerData;
+  const { seasonStats, last5 } = playerData;
   return (
     <>
       <GridItem rowSpan={{ base: 1, lg: 8 }} colSpan={{ base: 8, lg: 2 }}>
-        {seasonStats ? (
-          <PlayerCard
-            pic={img}
-            seasonStats={seasonStats}
-            playerName={fullName}
-            nextOpponent={next_opponent[0]}
-          />
-        ) : null}
+        {seasonStats ? <PlayerCard /> : null}
       </GridItem>
       <GridItem rowSpan={{ base: 1, lg: 4 }} colSpan={{ base: 8, lg: 6 }}>
         {last5 ? (
@@ -28,7 +20,7 @@ const PlayerContainer = () => {
           />
         ) : null}
       </GridItem>
-      <GridItem rowSpan={{ base: 1, lg: 4 }} colSpan={{ base: 8, lg: 6 }}>
+      {/* <GridItem rowSpan={{ base: 1, lg: 4 }} colSpan={{ base: 8, lg: 6 }}>
         {last5opp ? (
           <Stats
             title={`Last 5 games against ${next_opponent[1]}`}
@@ -36,7 +28,7 @@ const PlayerContainer = () => {
             rowNumber={[0, 1, 2, 3, 4]}
           />
         ) : null}
-      </GridItem>
+      </GridItem> */}
     </>
   );
 };

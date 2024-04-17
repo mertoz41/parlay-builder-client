@@ -4,8 +4,11 @@ import Header from "./Header";
 import HomeContainer from "./HomeContainer";
 import PlayerContainer from "./PlayerContainer";
 import { Context } from "../context";
+interface PlayerData {
+  
+}
 const GridContainer = () => {
-  const [playerData, setPlayerData] = useState(null);
+  const [playerData, setPlayerData] = useState<PlayerData>();
 
   return (
     <Context.Provider value={{ playerData, setPlayerData }}>
