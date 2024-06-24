@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext} from "react";
 import TodaysGames from "./TodaysGames";
 import axios from "axios";
 import Stats from "./Stats";
@@ -6,6 +6,7 @@ import { GridItem, Heading, Spinner, Flex } from "@chakra-ui/react";
 import CloseButton from "./CloseButton";
 import AllTeams from "./AllTeams";
 import { API_ROOT } from "../utils";
+import { Context } from "../context";
 const HomeContainer = () => {
   useEffect(() => {
     getGames();
@@ -15,6 +16,8 @@ const HomeContainer = () => {
   const [selectedTeam, setSelectedTeam] = useState<any>(null);
   const [teamName, setTeamName] = useState<string>("");
   const [teams, setTeams] = useState<[]>([]);
+
+
   const getGames = () => {
     axios
       .get(
@@ -43,11 +46,17 @@ const HomeContainer = () => {
         overflow={"auto"}
       >
         <Flex overflow={"auto"}>
-          <AllTeams
-            teams={teams}
-            setTeamName={setTeamName}
-            setSelectedTeam={setSelectedTeam}
-          />
+          {teams.length ? (
+            <AllTeams
+              teams={teams}
+              setTeamName={setTeamName}
+              setSelectedTeam={setSelectedTeam}
+            />
+          ) : (
+            <Flex w={"100%"} justify={"center"} marginTop={10}>
+              <Spinner alignSelf={"center"} color="white" size="xl" />
+            </Flex>
+          )}
           {/* <TodaysGames
             setTeamName={setTeamName}
             setSelectedTeam={setSelectedTeam}
@@ -82,6 +91,7 @@ const HomeContainer = () => {
             <Spinner alignSelf={"center"} color="white" size="xl" />
           </Flex>
         )}
+    
       </GridItem>
     </>
   );

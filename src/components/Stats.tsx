@@ -21,8 +21,7 @@ const Stats = ({
   title: string;
   rowNumber: any;
 }) => {
-  const { setPlayerData } = useContext(Context);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { setPlayerData, setLoading } = useContext(Context);
   const getStats = async (name: string) => {
     setLoading(true);
     let playerName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -80,15 +79,6 @@ const Stats = ({
         <Heading textAlign={"center"} color="white">
           {title}
         </Heading>
-      ) : null}
-      {loading ? (
-        <Spinner
-          position={"absolute"}
-          m="0 auto"
-          alignSelf={"center"}
-          color="white"
-          size="sm"
-        />
       ) : null}
       <Box overflowX={"auto"}>
         <Table size={"sm"} variant="simple" color="white">

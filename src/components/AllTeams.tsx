@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Spinner, Text, Image, Flex, Heading } from "@chakra-ui/react";
 import axios from "axios";
 import { API_ROOT, getTeamPlayers } from "../utils";
-
+import { Context } from "../context";
 // const teams = [
 //   {
 //     name: "Boston Celtics",
@@ -135,15 +135,18 @@ const AllTeams = ({
   setSelectedTeam: (table: any) => void;
   setTeamName: (team: string) => void;
 }) => {
+  const { setLoading } = useContext(Context);
   const getTeamRoster = async (name: string) => {
+    setLoading(true);
     const teamInfo = await getTeamPlayers(name);
     setTeamName(name);
     setSelectedTeam(teamInfo.roster);
+    setLoading(false);
   };
   return (
     <Box>
       <Flex flexWrap={"wrap"}>
-        {teams.map((team:any, i:number) => (
+        {teams.map((team: any, i: number) => (
           <Box
             cursor={"pointer"}
             key={i}

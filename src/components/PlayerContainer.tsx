@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { GridItem } from "@chakra-ui/react";
+import { GridItem, Box} from "@chakra-ui/react";
 import PlayerCard from "./PlayerCard";
 import Stats from "./Stats";
 import { Context } from "../context";

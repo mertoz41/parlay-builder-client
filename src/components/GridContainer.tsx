@@ -4,14 +4,14 @@ import Header from "./Header";
 import HomeContainer from "./HomeContainer";
 import PlayerContainer from "./PlayerContainer";
 import { Context } from "../context";
-interface PlayerData {
-  
-}
+interface PlayerData {}
 const GridContainer = () => {
   const [playerData, setPlayerData] = useState<PlayerData>();
-
+  const [loading, setLoading] = useState<boolean>(false);
   return (
-    <Context.Provider value={{ playerData, setPlayerData }}>
+    <Context.Provider
+      value={{ playerData, setPlayerData, loading, setLoading }}
+    >
       <Grid
         h="100vh"
         w="100vw"
@@ -22,7 +22,8 @@ const GridContainer = () => {
         <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
           <Header />
         </GridItem>
-        {playerData ? <PlayerContainer /> : <HomeContainer />}
+        <HomeContainer />
+        {/* {playerData ? <PlayerContainer /> : null} */}
       </Grid>
     </Context.Provider>
   );
