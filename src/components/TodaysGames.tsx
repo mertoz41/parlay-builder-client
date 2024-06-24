@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Spinner, Text, Image, Flex } from "@chakra-ui/react";
 import axios from "axios";
-import { API_ROOT } from "../utils";
+import { API_ROOT, getTeamPlayers } from "../utils";
 const TodaysGames = ({
   games,
   setSelectedTeam,
@@ -21,15 +21,18 @@ const TodaysGames = ({
       </Box>
     );
 
-    const getTeamPlayers = (team: string) => {
-      axios
-        .get(`${API_ROOT}get_team/${team}`, {
-          headers: { "Content-Type": "application/json" },
-        })
-        .then((resp: any) => {
-          setTeamName(resp.data.team_name);
-          setSelectedTeam(resp.data.roster);
-        });
+    const getTeamPlayers = async (team: string) => {
+      const teamInfo: any = await getTeamPlayers(team);
+      setTeamName(teamInfo.teamName);
+      setSelectedTeam(teamInfo.roster);
+      // axios
+      //   .get(`${API_ROOT}get_team/${team}`, {
+      //     headers: { "Content-Type": "application/json" },
+      //   })
+      //   .then((resp: any) => {
+      //     setTeamName(resp.data.team_name);
+      //     setSelectedTeam(resp.data.roster);
+      //   });
     };
     return (
       <Flex

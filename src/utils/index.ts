@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// export const API_ROOT = "http://localhost:8000/parlaybuilder/";
-export const API_ROOT =
-  "https://parlay-builder-7466f23832fc.herokuapp.com/parlaybuilder/";
+export const API_ROOT = "http://localhost:8000/parlaybuilder/";
+// export const API_ROOT =
+//   "https://parlay-builder-7466f23832fc.herokuapp.com/parlaybuilder/";
 
 export const getPlayerStats = async (name: string) => {
   return await axios
@@ -19,6 +19,17 @@ export const getPlayerStats = async (name: string) => {
       return { ...resp.data, seasonStats: getSeasonStats(resp.data) };
     });
   // add .catch error handling
+};
+
+export const getTeamPlayers = async (team: string) => {
+  let mascot = team.split(' ').pop()
+  return await axios
+    .get(`${API_ROOT}get_team/${teamAbbreviations[`${mascot}`]}`, {
+      headers: { "Content-Type": "application/json" },
+    })
+    .then((resp: any) => {
+      return { teamName: resp.data.team_name, roster: resp.data.roster };
+    });
 };
 
 export const getSeasonStats = (data: any) => {
@@ -42,4 +53,37 @@ export const getSeasonStats = (data: any) => {
     // last5Opp: { pts: oppAvgPts, reb: oppAvgReb, assist: oppAvgAst },
   };
   return playerAverages;
+};
+
+const teamAbbreviations: any = {
+  Hawks: "ATL",
+  Celtics: "BOS",
+  Nets: "BRK",
+  Hornets: "CHO",
+  Bulls: "CHI",
+  Cavaliers: "CLE",
+  Mavericks: "DAL",
+  Nuggets: "DEN",
+  Pistons: "DET",
+  Warriors: "GSW",
+  Rockets: "HOU",
+  Pacers: "IND",
+  Clippers: "LAC",
+  Lakers: "LAL",
+  Grizzlies: "MEM",
+  Heat: "MIA",
+  Bucks: "MIL",
+  Timberwolves: "MIN",
+  Pelicans: "NOP",
+  Knicks: "NYK",
+  Magic: "ORL",
+  Thunder: "OKC",
+  "76ers": "PHI",
+  Suns: "PHO",
+  Blazers: "POR",
+  Spurs: "SAS",
+  Kings: "SAC",
+  Raptors: "TOR",
+  Jazz: "UTA",
+  Wizards: "WAS",
 };
