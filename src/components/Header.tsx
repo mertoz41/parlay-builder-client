@@ -12,7 +12,7 @@ const Header = () => {
     >
       <Flex flex={1} justify={{ base: "center", lg: "normal" }}>
         <Heading alignSelf={"center"} color={"white"} backgroundColor={"black"}>
-          NBA PARLAY BUILDER
+          NBA STATS SCRAPER
         </Heading>
         {loading ? (
           <Spinner
@@ -23,7 +23,6 @@ const Header = () => {
           />
         ) : null}
       </Flex>
-
       <PlayerSearch />
     </Flex>
   );

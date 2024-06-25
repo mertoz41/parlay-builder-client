@@ -25,14 +25,6 @@ const TodaysGames = ({
       const teamInfo: any = await getTeamPlayers(team);
       setTeamName(teamInfo.teamName);
       setSelectedTeam(teamInfo.roster);
-      // axios
-      //   .get(`${API_ROOT}get_team/${team}`, {
-      //     headers: { "Content-Type": "application/json" },
-      //   })
-      //   .then((resp: any) => {
-      //     setTeamName(resp.data.team_name);
-      //     setSelectedTeam(resp.data.roster);
-      //   });
     };
     return (
       <Flex

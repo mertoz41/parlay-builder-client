@@ -6,7 +6,6 @@ import {
   Tr,
   Heading,
   Th,
-  Spinner,
   Td,
   Box,
 } from "@chakra-ui/react";
@@ -21,7 +20,7 @@ const Stats = ({
   title: string;
   rowNumber: any;
 }) => {
-  const { setPlayerData, setLoading } = useContext(Context);
+  const { setPlayerData, setLoading, playerData } = useContext(Context);
   const getStats = async (name: string) => {
     setLoading(true);
     let playerName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -76,10 +75,11 @@ const Stats = ({
   return (
     <Box padding={3}>
       {title.length ? (
-        <Heading textAlign={"center"} color="white">
+        <Heading flex={1} textAlign={"center"} fontSize={20} color="white">
           {title}
         </Heading>
       ) : null}
+
       <Box overflowX={"auto"}>
         <Table size={"sm"} variant="simple" color="white">
           <Thead>
