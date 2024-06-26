@@ -20,7 +20,9 @@ const HomeContainer = () => {
   const [teams, setTeams] = useState<[]>([]);
   const [playerData, setPlayerData] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [last5opp, setLast5opp] = useState<any>()
+  const [last5opp, setLast5opp] = useState<any>();
+  const [showLast5, setShowLast5] = useState<boolean>(true);
+
   const getGames = () => {
     axios
       .get(
@@ -38,24 +40,34 @@ const HomeContainer = () => {
   };
 
   const renderTitleSection = () => (
+    // if playerdata is available, display nav bars,
+    // one for last 5 games
+    // the other that will say "Select a team from above to "
     <GridItem
       colSpan={{ base: 8, lg: 8 }}
       rowSpan={{ base: 2, lg: 1 }}
       alignContent={"center"}
     >
-      <Flex justifyContent={"center"}>
-        <Heading color={"white"} textAlign={"center"}>
-          {playerData
-            ? playerData.fullName
-            : selectedTeam
-            ? `${teamName} Roster`
-            : "MVP Ladder"}
-        </Heading>
-        {playerData ? (
-          <CloseButton action={setPlayerData} />
-        ) : selectedTeam ? (
-          <CloseButton action={setSelectedTeam} />
-        ) : null}
+      <Flex justifyContent={"space-between"}>
+        <Flex>
+          <Heading color={"white"} textAlign={"center"}>
+            {playerData
+              ? playerData.fullName
+              : selectedTeam
+              ? `${teamName} Roster`
+              : "MVP Ladder"}
+          </Heading>
+          {playerData ? (
+            // must clear last5opp with this act
+            <CloseButton action={setPlayerData} />
+          ) : selectedTeam ? (
+            <CloseButton action={setSelectedTeam} />
+          ) : null}
+        </Flex>
+        <Flex color="white" flex={1} justifyContent={"space-around"}>
+          <Heading>Last 5 games</Heading>
+          <Heading>Select a team to see last 5 games</Heading>
+        </Flex>
       </Flex>
     </GridItem>
   );
@@ -117,6 +129,8 @@ const HomeContainer = () => {
         setSelectedTeam,
         setLast5opp,
         last5opp,
+        setShowLast5,
+        showLast5
       }}
     >
       <Grid
@@ -124,13 +138,13 @@ const HomeContainer = () => {
         w="100vw"
         templateRows="repeat(12, 1fr)"
         templateColumns="repeat(8, 1fr)"
-        padding={1}
+        gap={3}
       >
         <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
           <Header />
         </GridItem>
         {renderTopSection()}
-        {renderTitleSection()}
+        {/* {renderTitleSection()} */}
         {renderBottomSection()}
       </Grid>
     </Context.Provider>

@@ -74,11 +74,11 @@ const Stats = ({
 
   return (
     <Box padding={3}>
-      {title.length ? (
+      {/* {title.length ? (
         <Heading flex={1} textAlign={"center"} fontSize={20} color="white">
           {title}
         </Heading>
-      ) : null}
+      ) : null} */}
 
       <Box overflowX={"auto"}>
         <Table size={"sm"} variant="simple" color="white">

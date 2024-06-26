@@ -1,37 +1,31 @@
 import React, { useContext, useState } from "react";
 import { Box, Image, Flex, Heading } from "@chakra-ui/react";
-import { getTeamPlayers, API_ROOT } from "../utils";
+import { getTeamPlayers, API_ROOT, getOpponentStats } from "../utils";
 import { Context } from "../context";
 import axios from "axios";
 
 const AllTeams = ({ teams }: { teams: any }) => {
-  const { setLoading, setTeamName, setSelectedTeam, teamName, playerData, setLast5opp } =
-    useContext(Context);
+  const {
+    setLoading,
+    setTeamName,
+    setSelectedTeam,
+    teamName,
+    playerData,
+    setLast5opp,
+    setShowLast5,
+  } = useContext(Context);
 
-  const teamAction = (name: string) => {
+  const teamAction = async (name: string) => {
     setLoading(true);
 
     if (playerData) {
       let splittedName = playerData.fullName.split(" ");
       let firstName = splittedName[0];
       let lastName = splittedName[1];
-
-      axios
-        .post(
-          `${API_ROOT}get_opponent_stats/`,
-          {
-            first: firstName.toLowerCase(),
-            last: lastName.toLowerCase(),
-            team: name.split(" ").pop()?.toLowerCase(),
-          },
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-        .then((resp: any) => {
-          setLast5opp(resp.data.opp_stats);
-          setLoading(false)
-        });
+      const opponentStats = await getOpponentStats(firstName, lastName, name);
+      setLast5opp({ teamName: name, stats: opponentStats });
+      setShowLast5(false);
+      setLoading(false);
     } else {
       getTeamRoster(name);
     }

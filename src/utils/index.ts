@@ -22,13 +22,35 @@ export const getPlayerStats = async (name: string) => {
 };
 
 export const getTeamPlayers = async (team: string) => {
-  let mascot = team.split(' ').pop()
+  let mascot = team.split(" ").pop();
   return await axios
     .get(`${API_ROOT}get_team/${teamAbbreviations[`${mascot}`]}`, {
       headers: { "Content-Type": "application/json" },
     })
     .then((resp: any) => {
       return { teamName: resp.data.team_name, roster: resp.data.roster };
+    });
+};
+
+export const getOpponentStats = async (
+  firstName: string,
+  lastName: string,
+  team: string
+) => {
+  return await axios
+    .post(
+      `${API_ROOT}get_opponent_stats/`,
+      {
+        first: firstName.toLowerCase(),
+        last: lastName.toLowerCase(),
+        team: team.split(" ").pop()?.toLowerCase(),
+      },
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+    .then((resp: any) => {
+      return resp.data.opp_stats;
     });
 };
 
