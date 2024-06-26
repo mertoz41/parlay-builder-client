@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Flex, Heading, Spinner } from "@chakra-ui/react";
+import { Flex, Heading, Spinner, Box } from "@chakra-ui/react";
 import PlayerSearch from "./PlayerSearch";
 import { Context } from "../context";
 const Header = () => {
@@ -10,18 +10,28 @@ const Header = () => {
       justifyContent={"space-between"}
       flexDir={{ base: "column", lg: "row" }}
     >
-      <Flex flex={1} justify={{ base: "center", lg: "normal" }}>
-        <Heading alignSelf={"center"} color={"white"} backgroundColor={"black"}>
-          NBA STATS SCRAPER
-        </Heading>
-        {loading ? (
-          <Spinner
+      <Flex
+        flex={1}
+        justify={{ base: "center", lg: "normal" }}
+      >
+        <Box display={{ lg: "none" }} flex={1}></Box>
+          <Heading
             alignSelf={"center"}
-            marginLeft={5}
-            color="white"
-            size="lg"
-          />
-        ) : null}
+            color={"white"}
+            backgroundColor={"black"}
+          >
+            NBA STATS SCRAPER
+          </Heading>
+        <Box flex={1}>
+          {loading ? (
+            <Spinner
+              alignSelf={"center"}
+              marginLeft={{base: 3, lg:5}}
+              color="white"
+              size="lg"
+            />
+          ) : null}
+        </Box>
       </Flex>
       <PlayerSearch />
     </Flex>

@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   Table,
   Thead,
   Tbody,
   Tr,
-  Heading,
   Th,
   Td,
   Box,
@@ -13,7 +12,6 @@ import { Context } from "../context";
 import { getPlayerStats } from "../utils";
 const Stats = ({
   list,
-  title,
   rowNumber,
 }: {
   list: any;
@@ -73,13 +71,7 @@ const Stats = ({
   };
 
   return (
-    <Box padding={3}>
-      {/* {title.length ? (
-        <Heading flex={1} textAlign={"center"} fontSize={20} color="white">
-          {title}
-        </Heading>
-      ) : null} */}
-
+    <Box>
       <Box overflowX={"auto"}>
         <Table size={"sm"} variant="simple" color="white">
           <Thead>

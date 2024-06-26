@@ -54,20 +54,26 @@ const PlayerCard = () => {
     setLast5opp(null);
   };
   return (
-    <Flex flex={1} justifyContent={"space-between"} flexDirection={"column"}>
-      <Flex justifyContent={"center"}>
-        <Heading color={"white"} textAlign={"center"}>
-          {playerData ? playerData.fullName : null}
-        </Heading>
-        <CloseButton action={clearPlayerData} />
-      </Flex>
-      <Flex>
-        <Image alt="player pic" src={img} h={48} m="0 auto" />
-        <Flex
-          margin={2}
-          justifyContent={"space-between"}
-          direction={"column"}
-        ></Flex>
+    <Flex
+      flexDirection={{ base: "column", lg: "row" }}
+      flex={1}
+      marginBottom={{ base: 5, lg: 0 }}
+      borderRightWidth={{base: 0, lg: 1}}
+    >
+      <Image
+        alt="player pic"
+        src={img}
+        h={{ base: "auto", lg: "100%" }}
+        w={{ base: 250, lg: "auto" }}
+        m={{ base: "0 auto", lg: 0 }}
+      />
+      <Flex marginTop={{base:5, lg: 0}} flex={1} justifyContent={"space-between"} direction={"column"}>
+        <Flex justifyContent={"center"}>
+          <Heading color={"white"} textAlign={"center"}>
+            {playerData ? playerData.fullName : null}
+          </Heading>
+          <CloseButton action={clearPlayerData} />
+        </Flex>
         {renderTable()}
       </Flex>
     </Flex>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import PlayerCard from "./PlayerCard";
 import Stats from "./Stats";
@@ -8,21 +8,27 @@ const PlayerContainer = () => {
   const { seasonStats, last5 } = playerData;
 
   return (
-    <Flex justifyContent={"space-between"} w={"100%"}>
+    <Flex
+      justifyContent={"space-between"}
+      flexDirection={{ base: "column", lg: "row" }}
+      w={"100%"}
+      borderTopWidth={1}
+    >
       {seasonStats ? <PlayerCard /> : null}
-      <Box borderWidth={1}>
+      <Box height={"100%"}>
         <Flex color="white" justifyContent={"space-around"}>
           <Button
             borderRadius={0}
             color="white"
+            onClick={() => setShowLast5(true)}
             flex={1}
-            backgroundColor={showLast5 ? "black" : "transparent"}
-            _hover={{ backgroundColor: "#595a6b" }}
+            backgroundColor={showLast5 ? "#595a6b" : "transparent"}
+            _hover={{ backgroundColor: "black" }}
           >
             <Heading
+              fontSize={{ base: 18, lg: 25 }}
               textAlign={"center"}
               cursor={"pointer"}
-              onClick={() => setShowLast5(true)}
             >
               last 5 games
             </Heading>
@@ -31,16 +37,19 @@ const PlayerContainer = () => {
             borderRadius={0}
             color="white"
             flex={1}
+            onClick={() => setShowLast5(false)}
             isDisabled={!last5opp}
-            backgroundColor={showLast5 ? "transparent" : "black"}
-            _hover={{ backgroundColor: "#595a6b" }}
+            backgroundColor={showLast5 ? "transparent" : "#595a6b"}
+            _hover={{ backgroundColor: "black" }}
           >
             <Heading
-              onClick={() => setShowLast5(false)}
+              fontSize={{ base: 18, lg: 25 }}
               textAlign={"center"}
               cursor={"pointer"}
             >
-              {!last5opp ? "Select a team to see last 5" : `last 5 vs ${last5opp.teamName.split(' ').pop()}`}
+              {!last5opp
+                ? "Select a team to see last 5"
+                : `last 5 vs ${last5opp.teamName.split(" ").pop()}`}
             </Heading>
           </Button>
         </Flex>
