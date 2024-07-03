@@ -6,7 +6,7 @@ const PlayerSearch = () => {
   const [fullName, setFullName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { setPlayerData } = useContext(Context);
+  const { setPlayerData, setLast5opp, setShowLast5 } = useContext(Context);
   const searchPlayer = async (e: any) => {
     e.preventDefault();
     if (fullName.length < 5) {
@@ -21,6 +21,8 @@ const PlayerSearch = () => {
         ...stats,
         fullName: fullName,
       });
+      setLast5opp(null)
+      setShowLast5(true)
     }
 
     setFullName("");
