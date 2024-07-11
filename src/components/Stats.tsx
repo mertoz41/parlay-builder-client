@@ -18,7 +18,7 @@ const Stats = ({
   title: string;
   rowNumber: any;
 }) => {
-  const { setPlayerData, setLoading, playerData } = useContext(Context);
+  const { setPlayerData, setLoading } = useContext(Context);
   const getStats = async (name: string) => {
     setLoading(true);
     let playerName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -51,15 +51,15 @@ const Stats = ({
         {list.L ? <Td textAlign={"center"}>{list.L[i]}</Td> : null}
 
         {list.Date ? <Td textAlign={"center"}>{list.Date[i]}</Td> : null}
-        {list.Opp ? <Td textAlign={"center"}>{list.Opp[i]}</Td> : null}
+        {list.OPP ? <Td textAlign={"center"}>{list.OPP[i]}</Td> : null}
         {list.Result ? <Td textAlign={"center"}>{list.Result[i]}</Td> : null}
 
-        {list.MP ? <Td textAlign={"center"}>{list.MP[i]}</Td> : null}
+        {list.MIN ? <Td textAlign={"center"}>{list.MIN[i]}</Td> : null}
         <Td textAlign={"center"}>
-          {list.FG[i]}/{list.FGA[i]}
+          {list.FGM[i]}/{list.FGA[i]}
         </Td>
         <Td textAlign={"center"}>
-          {list["3P"][i]}/{list["3PA"][i]}
+          {list["3PM"][i]}/{list["3PA"][i]}
         </Td>
         <Td textAlign={"center"}>{list.STL[i]}</Td>
         <Td textAlign={"center"}>{list.BLK[i]}</Td>
@@ -82,9 +82,9 @@ const Stats = ({
               {list.L ? <Th textAlign={"center"}>L</Th> : null}
 
               {list.Date ? <Th textAlign={"center"}>Date</Th> : null}
-              {list.Opp ? <Th textAlign={"center"}>Opponent</Th> : null}
+              {list.OPP ? <Th textAlign={"center"}>Opponent</Th> : null}
               {list.Result ? <Th textAlign={"center"}>Result</Th> : null}
-              {list.MP ? <Th textAlign={"center"}>MP</Th> : null}
+              {list.MIN ? <Th textAlign={"center"}>MP</Th> : null}
               <Th textAlign={"center"}>FG/FGA</Th>
               <Th textAlign={"center"}>3P/3PA</Th>
               <Th textAlign={"center"}>Steal</Th>
