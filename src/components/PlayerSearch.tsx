@@ -29,7 +29,9 @@ const PlayerSearch = () => {
     setLoading(false);
   };
   return (
-    <Flex flex={1} marginY={{ base: 5, lg: 0 }}>
+    <form style={{flex: 'row'}}>
+        <Flex flex={1} marginY={{ base: 5, lg: 0 }}>
+
       <Input
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
@@ -40,17 +42,18 @@ const PlayerSearch = () => {
         borderColor={"transparent"}
         borderBottomWidth={1}
         borderBottomColor="white"
-      />
+        />
       <Flex w={200} justifyContent={"center"}>
         {loading ? (
           <Spinner alignSelf={"center"} color="white" size="lg" />
         ) : (
-          <Button paddingX={5} onClick={(e) => searchPlayer(e)} marginLeft={5}>
+          <Button paddingX={5} type="submit" onClick={(e) => searchPlayer(e)} marginLeft={5}>
             Get stats
           </Button>
         )}
       </Flex>
     </Flex>
+        </form>
   );
 };
 

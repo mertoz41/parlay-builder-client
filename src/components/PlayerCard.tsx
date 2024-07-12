@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Image,
   Table,
@@ -8,6 +8,7 @@ import {
   Flex,
   Tr,
   Th,
+  Skeleton,
   Td,
 } from "@chakra-ui/react";
 import { Context } from "../context";
@@ -15,6 +16,7 @@ import CloseButton from "./CloseButton";
 const PlayerCard = () => {
   const { playerData, setPlayerData, setLast5opp } = useContext(Context);
   const { seasonStats, img } = playerData;
+  const [picLoaded, setPicLoaded] = useState<boolean>(false);
   const renderStats = (title: string, stat: any) => {
     return (
       <Tr>
@@ -53,28 +55,46 @@ const PlayerCard = () => {
     setPlayerData(null);
     setLast5opp(null);
   };
+  const renderPlayerName = () => {
+    return (
+      <Flex justifyContent={"center"}>
+        <Heading color={"white"} textAlign={"center"}>
+          {playerData ? playerData.fullName : null}
+        </Heading>
+        <CloseButton action={clearPlayerData} />
+      </Flex>
+    );
+  };
   return (
     <Flex
-      flexDirection={{ base: "column", lg: "row" }}
+      flexDirection={"column"}
       flex={1}
       marginBottom={{ base: 5, lg: 0 }}
-      borderRightWidth={{base: 0, lg: 1}}
+      borderRightWidth={{ base: 0, lg: 1 }}
     >
-      <Image
-        alt="player pic"
-        src={img}
-        h={{ base: "auto", lg: "100%" }}
-        w={{ base: 250, lg: "auto" }}
-        m={{ base: "0 auto", lg: 0 }}
-      />
-      <Flex marginTop={{base:5, lg: 0}} flex={1} justifyContent={"space-between"} direction={"column"}>
-        <Flex justifyContent={"center"}>
-          <Heading color={"white"} textAlign={"center"}>
-            {playerData ? playerData.fullName : null}
-          </Heading>
-          <CloseButton action={clearPlayerData} />
+      {renderPlayerName()}
+      <Flex>
+        <Skeleton
+          h={{ base: "auto", lg: "100%" }}
+          w={{ base: 100, lg: "auto" }}
+          isLoaded={picLoaded}
+        >
+          <Image
+            alt="player pic"
+            src={img}
+            h={{ base: "auto", lg: "100%" }}
+            w={{ base: 100, lg: "auto" }}
+            onLoad={() => setPicLoaded(true)}
+          />
+        </Skeleton>
+        <Flex
+          marginTop={{ base: 5, lg: 0 }}
+          flex={1}
+          justifyContent={"flex-end"}
+          direction={"column"}
+        >
+          {renderTable()}
         </Flex>
-        {renderTable()}
       </Flex>
     </Flex>
   );

@@ -38,10 +38,8 @@ const AllTeams = ({ teams }: { teams: any }) => {
   };
   return (
     <Box>
-      <Heading color={"white"} textAlign={"center"}>
-        All Teams
-      </Heading>
-      <Flex overflowX={"auto"} flexWrap={{ base: "nowrap", lg: "wrap" }}>
+    
+      <Flex overflowX={"auto"} justifyContent={"center"} flexWrap={{ base: "wrap", lg: "wrap" }}>
         {teams.map((team: any, i: number) => (
           <Box
             flexShrink={0}

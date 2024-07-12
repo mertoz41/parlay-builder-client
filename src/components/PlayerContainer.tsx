@@ -48,7 +48,7 @@ const PlayerContainer = () => {
               cursor={"pointer"}
             >
               {!last5opp
-                ? "Select a team to see last 5"
+                ? "select a team"
                 : `last 5 vs ${last5opp.teamName.split(" ").pop()}`}
             </Heading>
           </Button>

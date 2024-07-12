@@ -36,26 +36,33 @@ const HomeContainer = () => {
   };
 
   const renderTopSection = () => (
-    <GridItem
-      rowSpan={{ base: 2, lg: 5 }}
-      colSpan={{ base: 8, lg: 8 }}
-      overflow={"auto"}
-    >
-      <Flex>
-        {teams.length ? (
-          <AllTeams teams={teams} />
-        ) : (
-          <Flex w={"100%"} justify={"center"} marginTop={10}>
-            <Spinner alignSelf={"center"} color="white" size="xl" />
-          </Flex>
-        )}
-        {/* <TodaysGames
+    <>
+      <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
+        <Heading color={"white"} textAlign={"center"}>
+          All Teams
+        </Heading>
+      </GridItem>
+      <GridItem
+        rowSpan={{ base: 4, lg: 4 }}
+        colSpan={{ base: 8, lg: 8 }}
+        overflow={"auto"}
+      >
+        <Flex>
+          {teams.length ? (
+            <AllTeams teams={teams} />
+          ) : (
+            <Flex w={"100%"} justify={"center"} marginTop={10}>
+              <Spinner alignSelf={"center"} color="white" size="xl" />
+            </Flex>
+          )}
+          {/* <TodaysGames
             setTeamName={setTeamName}
             setSelectedTeam={setSelectedTeam}
             games={games}
-          /> */}
-      </Flex>
-    </GridItem>
+            /> */}
+        </Flex>
+      </GridItem>
+    </>
   );
 
   const renderBottomSection = () => (
@@ -115,9 +122,8 @@ const HomeContainer = () => {
       <Grid
         h="100vh"
         w="100vw"
-        templateRows="repeat(12, 1fr)"
+        templateRows="repeat(14, 1fr)"
         templateColumns="repeat(8, 1fr)"
-        gap={3}
       >
         <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
           <Header />
