@@ -29,7 +29,7 @@ const HomeContainer = () => {
         headers: { "Content-Type": "application/json" },
       })
       .then((resp: any) => {
-        setTeams(resp.data.all_teams);
+        // setTeams(resp.data.all_teams);
         setMvpList(resp.data.mvp_list);
         setGames(resp.data.todays_games);
       });
@@ -48,13 +48,14 @@ const HomeContainer = () => {
         overflow={"auto"}
       >
         <Flex>
-          {teams.length ? (
-            <AllTeams teams={teams} />
+          <AllTeams />
+          {/* {teams.length ? (
+            <AllTeams />
           ) : (
             <Flex w={"100%"} justify={"center"} marginTop={10}>
               <Spinner alignSelf={"center"} color="white" size="xl" />
             </Flex>
-          )}
+          )} */}
           {/* <TodaysGames
             setTeamName={setTeamName}
             setSelectedTeam={setSelectedTeam}

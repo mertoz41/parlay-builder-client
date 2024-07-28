@@ -1,10 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Box, Image, Flex, Heading } from "@chakra-ui/react";
 import { getTeamPlayers, API_ROOT, getOpponentStats } from "../utils";
 import { Context } from "../context";
 import axios from "axios";
 
-const AllTeams = ({ teams }: { teams: any }) => {
+const AllTeams = () => {
+  useEffect(() => {
+    getAllTeams();
+  }, []);
   const {
     setLoading,
     setTeamName,
@@ -14,7 +17,16 @@ const AllTeams = ({ teams }: { teams: any }) => {
     setLast5opp,
     setShowLast5,
   } = useContext(Context);
-
+  const [teams, setTeams] = useState<[]>([]);
+  const getAllTeams = () => {
+    axios
+      .get(`${API_ROOT}get_all_teams`, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((resp: any) => {
+        setTeams(resp.data.teams);
+      });
+  };
   const teamAction = async (name: string) => {
     setLoading(true);
 
@@ -38,13 +50,18 @@ const AllTeams = ({ teams }: { teams: any }) => {
   };
   return (
     <Box>
-    
-      <Flex overflowX={"auto"} justifyContent={"center"} flexWrap={{ base: "wrap", lg: "wrap" }}>
+      <Flex
+        data-testid="teams"
+        overflowX={"auto"}
+        justifyContent={"center"}
+        flexWrap={{ base: "wrap", lg: "wrap" }}
+      >
         {teams.map((team: any, i: number) => (
           <Box
             flexShrink={0}
             cursor={"pointer"}
             key={i}
+            data-testid="team-item"
             onClick={() => teamAction(team.name)}
             backgroundColor={team.name === teamName ? "#595a6b" : "transparent"}
             _hover={{ backgroundColor: "#595a6b" }}
