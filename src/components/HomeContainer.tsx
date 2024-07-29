@@ -6,20 +6,17 @@ import { GridItem, Grid, Heading, Spinner, Flex } from "@chakra-ui/react";
 import CloseButton from "./CloseButton";
 import AllTeams from "./AllTeams";
 import { API_ROOT } from "../utils";
-import { Context } from "../context";
 import PlayerContainer from "./PlayerContainer";
 import Header from "./Header";
 const HomeContainer = () => {
   useEffect(() => {
     getGames();
   }, []);
-  const [games, setGames] = useState<[]>([]);
   const [mvpList, setMvpList] = useState<any>(null);
   const [selectedTeam, setSelectedTeam] = useState<any>(null);
   const [teamName, setTeamName] = useState<string>("");
-  const [teams, setTeams] = useState<[]>([]);
   const [playerData, setPlayerData] = useState<any>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const [last5opp, setLast5opp] = useState<any>();
   const [showLast5, setShowLast5] = useState<boolean>(true);
 
@@ -29,9 +26,7 @@ const HomeContainer = () => {
         headers: { "Content-Type": "application/json" },
       })
       .then((resp: any) => {
-        // setTeams(resp.data.all_teams);
         setMvpList(resp.data.mvp_list);
-        setGames(resp.data.todays_games);
       });
   };
 
@@ -43,19 +38,21 @@ const HomeContainer = () => {
         </Heading>
       </GridItem>
       <GridItem
-        rowSpan={{ base: 4, lg: 4 }}
+        rowSpan={{ base: 5, lg: 4 }}
         colSpan={{ base: 8, lg: 8 }}
         overflow={"auto"}
       >
         <Flex>
-          <AllTeams />
-          {/* {teams.length ? (
-            <AllTeams />
-          ) : (
-            <Flex w={"100%"} justify={"center"} marginTop={10}>
-              <Spinner alignSelf={"center"} color="white" size="xl" />
-            </Flex>
-          )} */}
+          <AllTeams
+            setLoading={setLoading}
+            setTeamName={setTeamName}
+            setSelectedTeam={setSelectedTeam}
+            teamName={teamName}
+            playerData={playerData}
+            setLast5opp={setLast5opp}
+            setShowLast5={setShowLast5}
+          />
+
           {/* <TodaysGames
             setTeamName={setTeamName}
             setSelectedTeam={setSelectedTeam}
@@ -68,35 +65,35 @@ const HomeContainer = () => {
 
   const renderBottomSection = () => (
     <GridItem
-      rowSpan={{ base: 9, lg: 6 }}
+      rowSpan={{ base: 7, lg: 6 }}
       colSpan={{ base: 8, lg: 8 }}
       overflow={"auto"}
     >
       {playerData ? (
-        <PlayerContainer />
+        <PlayerContainer
+          playerData={playerData}
+          last5opp={last5opp}
+          showLast5={showLast5}
+          setShowLast5={setShowLast5}
+          setLoading={setLoading}
+          setPlayerData={setPlayerData}
+        />
       ) : selectedTeam ? (
-        <>
-          <Flex justifyContent={"center"}>
-            <Heading color={"white"} textAlign={"center"}>
-              {teamName} Roster
-            </Heading>
-            <CloseButton action={setSelectedTeam} />
-          </Flex>
-          <Stats
-            title={``}
-            list={selectedTeam}
-            rowNumber={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
-          />
-        </>
+        <Stats
+          title={``}
+          list={selectedTeam}
+          rowNumber={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
+          setLoading={setLoading}
+          setPlayerData={setPlayerData}
+        />
       ) : mvpList ? (
-        <>
-          <Flex justify={"center"}>
-            <Heading color={"white"} textAlign={"center"}>
-              {"MVP Ladder"}
-            </Heading>
-          </Flex>
-          <Stats title={""} list={mvpList} rowNumber={[0, 1, 2, 3, 4]} />
-        </>
+        <Stats
+          title={""}
+          setLoading={setLoading}
+          setPlayerData={setPlayerData}
+          list={mvpList}
+          rowNumber={[0, 1, 2, 3, 4]}
+        />
       ) : (
         <Flex w={"100%"} justify={"center"} marginTop={10}>
           <Spinner alignSelf={"center"} color="white" size="xl" />
@@ -104,35 +101,58 @@ const HomeContainer = () => {
       )}
     </GridItem>
   );
+
+  const renderBottomTitleSection = () => {
+    const clearPlayerData = () => {
+      setPlayerData(null);
+      setLast5opp(null);
+    };
+    return (
+      <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
+        <Flex justify={"center"}>
+          <Heading color={"white"} textAlign={"center"}>
+            {playerData
+              ? playerData.fullName
+              : selectedTeam
+              ? `${teamName} Roster`
+              : "MVP Ladder"}
+          </Heading>
+          {playerData ? (
+            <CloseButton
+              action={clearPlayerData}
+              setTeamName={setTeamName}
+              playerData={playerData}
+            />
+          ) : selectedTeam ? (
+            <CloseButton
+              action={setSelectedTeam}
+              setTeamName={setTeamName}
+              playerData={playerData}
+            />
+          ) : null}
+        </Flex>
+      </GridItem>
+    );
+  };
   return (
-    <Context.Provider
-      value={{
-        playerData,
-        setPlayerData,
-        loading,
-        setLoading,
-        setTeamName,
-        teamName,
-        setSelectedTeam,
-        setLast5opp,
-        last5opp,
-        setShowLast5,
-        showLast5,
-      }}
+    <Grid
+      h="100vh"
+      w="100vw"
+      templateRows="repeat(14, 1fr)"
+      templateColumns="repeat(8, 1fr)"
     >
-      <Grid
-        h="100vh"
-        w="100vw"
-        templateRows="repeat(14, 1fr)"
-        templateColumns="repeat(8, 1fr)"
-      >
-        <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
-          <Header />
-        </GridItem>
-        {renderTopSection()}
-        {renderBottomSection()}
-      </Grid>
-    </Context.Provider>
+      <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
+        <Header
+          setPlayerData={setPlayerData}
+          setLast5opp={setLast5opp}
+          setShowLast5={setShowLast5}
+          loading={loading}
+        />
+      </GridItem>
+      {renderTopSection()}
+      {renderBottomTitleSection()}
+      {renderBottomSection()}
+    </Grid>
   );
 };
 

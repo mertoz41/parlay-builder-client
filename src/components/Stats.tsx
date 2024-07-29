@@ -1,24 +1,18 @@
-import React, { useContext } from "react";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Box,
-} from "@chakra-ui/react";
-import { Context } from "../context";
+import React from "react";
+import { Table, Thead, Tbody, Tr, Th, Td, Box } from "@chakra-ui/react";
 import { getPlayerStats } from "../utils";
 const Stats = ({
   list,
   rowNumber,
+  setLoading,
+  setPlayerData,
 }: {
   list: any;
   title: string;
   rowNumber: any;
+  setLoading: any;
+  setPlayerData: any;
 }) => {
-  const { setPlayerData, setLoading } = useContext(Context);
   const getStats = async (name: string) => {
     setLoading(true);
     let playerName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   Image,
   Table,
@@ -11,10 +11,7 @@ import {
   Skeleton,
   Td,
 } from "@chakra-ui/react";
-import { Context } from "../context";
-import CloseButton from "./CloseButton";
-const PlayerCard = () => {
-  const { playerData, setPlayerData, setLast5opp } = useContext(Context);
+const PlayerCard = ({ playerData }: { playerData: any }) => {
   const { seasonStats, img } = playerData;
   const [picLoaded, setPicLoaded] = useState<boolean>(false);
   const renderStats = (title: string, stat: any) => {
@@ -51,20 +48,6 @@ const PlayerCard = () => {
     </Table>
   );
 
-  const clearPlayerData = () => {
-    setPlayerData(null);
-    setLast5opp(null);
-  };
-  const renderPlayerName = () => {
-    return (
-      <Flex justifyContent={"center"}>
-        <Heading color={"white"} textAlign={"center"}>
-          {playerData ? playerData.fullName : null}
-        </Heading>
-        <CloseButton action={clearPlayerData} />
-      </Flex>
-    );
-  };
   return (
     <Flex
       flexDirection={"column"}
@@ -72,7 +55,6 @@ const PlayerCard = () => {
       marginBottom={{ base: 5, lg: 0 }}
       borderRightWidth={{ base: 0, lg: 1 }}
     >
-      {renderPlayerName()}
       <Flex>
         <Skeleton
           h={{ base: "auto", lg: "100%" }}

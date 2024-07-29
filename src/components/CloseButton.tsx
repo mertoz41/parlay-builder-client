@@ -1,8 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { CloseButton as Button } from "@chakra-ui/react";
-import { Context } from "../context";
-const CloseButton = ({ action }: { action: any }) => {
-  const { setTeamName, playerData } = useContext(Context);
+const CloseButton = ({
+  action,
+  setTeamName,
+  playerData,
+}: {
+  action: any;
+  setTeamName: any;
+  playerData: any;
+}) => {
   const buttonAction = () => {
     action(null);
     if (!playerData) {

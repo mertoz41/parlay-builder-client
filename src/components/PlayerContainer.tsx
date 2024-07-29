@@ -1,10 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import PlayerCard from "./PlayerCard";
 import Stats from "./Stats";
-import { Context } from "../context";
-const PlayerContainer = () => {
-  const { playerData, last5opp, showLast5, setShowLast5 } = useContext(Context);
+const PlayerContainer = ({
+  playerData,
+  last5opp,
+  showLast5,
+  setShowLast5,
+  setLoading,
+  setPlayerData,
+}: {
+  playerData: any;
+  last5opp: any;
+  showLast5: boolean;
+  setShowLast5: any;
+  setLoading: any;
+  setPlayerData: any;
+}) => {
   const { seasonStats, last5 } = playerData;
 
   return (
@@ -14,7 +26,7 @@ const PlayerContainer = () => {
       w={"100%"}
       borderTopWidth={1}
     >
-      {seasonStats ? <PlayerCard /> : null}
+      {seasonStats ? <PlayerCard playerData={playerData} /> : null}
       <Box height={"100%"}>
         <Flex color="white" justifyContent={"space-around"}>
           <Button
@@ -58,12 +70,16 @@ const PlayerContainer = () => {
             title={`Last 5 games against`}
             list={last5opp.stats}
             rowNumber={[0, 1, 2, 3, 4]}
+            setLoading={setLoading}
+            setPlayerData={setPlayerData}
           />
         ) : last5 ? (
           <Stats
             title="Last 5 games"
             list={last5}
             rowNumber={[0, 1, 2, 3, 4]}
+            setLoading={setLoading}
+            setPlayerData={setPlayerData}
           />
         ) : null}
       </Box>

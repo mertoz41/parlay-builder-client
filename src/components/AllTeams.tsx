@@ -1,22 +1,29 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Box, Image, Flex, Heading } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { Box, Image, Flex, Spinner } from "@chakra-ui/react";
 import { getTeamPlayers, API_ROOT, getOpponentStats } from "../utils";
-import { Context } from "../context";
 import axios from "axios";
 
-const AllTeams = () => {
+const AllTeams = ({
+  setLoading,
+  setTeamName,
+  setSelectedTeam,
+  teamName,
+  playerData,
+  setLast5opp,
+  setShowLast5,
+}: {
+  setLoading: any;
+  setTeamName: any;
+  setSelectedTeam: any;
+  teamName: any;
+  playerData: any;
+  setLast5opp: any;
+  setShowLast5: any;
+}) => {
   useEffect(() => {
     getAllTeams();
   }, []);
-  const {
-    setLoading,
-    setTeamName,
-    setSelectedTeam,
-    teamName,
-    playerData,
-    setLast5opp,
-    setShowLast5,
-  } = useContext(Context);
+
   const [teams, setTeams] = useState<[]>([]);
   const getAllTeams = () => {
     axios
@@ -49,14 +56,19 @@ const AllTeams = () => {
     setLoading(false);
   };
   return (
-    <Box>
-      <Flex
-        data-testid="teams"
-        overflowX={"auto"}
-        justifyContent={"center"}
-        flexWrap={{ base: "wrap", lg: "wrap" }}
-      >
-        {teams.map((team: any, i: number) => (
+    <Flex
+      data-testid="teams"
+      w={"100%"}
+      overflowX={"auto"}
+      justifyContent={"center"}
+      flexWrap={{ base: "wrap", lg: "wrap" }}
+    >
+      {!teams.length ? (
+        <Flex w={"100%"} justify={"center"} marginTop={10}>
+          <Spinner alignSelf={"center"} color="white" size="xl" />
+        </Flex>
+      ) : (
+        teams.map((team: any, i: number) => (
           <Box
             flexShrink={0}
             cursor={"pointer"}
@@ -69,9 +81,9 @@ const AllTeams = () => {
           >
             <Image alt="homepic" w={95} height={95} m="0 auto" src={team.img} />
           </Box>
-        ))}
-      </Flex>
-    </Box>
+        ))
+      )}
+    </Flex>
   );
 };
 
