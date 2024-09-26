@@ -52,6 +52,10 @@ export const getOpponentStats = async (
     )
     .then((resp: any) => {
       return resp.data.opp_stats;
+      
+    })
+    .catch((error) => {
+      alert("error occured while fetching this data.")
     });
 };
 

@@ -1,16 +1,8 @@
 import React from "react";
-import { Box, Spinner, Text, Image, Flex } from "@chakra-ui/react";
+import { Box, Heading, Text, Image, Flex } from "@chakra-ui/react";
 import axios from "axios";
 import { API_ROOT, getTeamPlayers } from "../utils";
-const TodaysGames = ({
-  games,
-  setSelectedTeam,
-  setTeamName,
-}: {
-  games: any;
-  setSelectedTeam: (table: any) => void;
-  setTeamName: (team: string) => void;
-}) => {
+const TodaysGames = () => {
   const renderRow = (item: any, i: number) => {
     const renderTeam = (name: string, pic: string) => (
       <Box cursor={"pointer"} onClick={() => getTeamPlayers(name)}>
@@ -22,9 +14,9 @@ const TodaysGames = ({
     );
 
     const getTeamPlayers = async (team: string) => {
-      const teamInfo: any = await getTeamPlayers(team);
-      setTeamName(teamInfo.teamName);
-      setSelectedTeam(teamInfo.roster);
+      // const teamInfo: any = await getTeamPlayers(team);
+      // setTeamName(teamInfo.teamName);
+      // setSelectedTeam(teamInfo.roster);
     };
     return (
       <Flex
@@ -51,11 +43,16 @@ const TodaysGames = ({
   return (
     <Flex
       flexWrap={"wrap"}
-      flexDirection={{ base: "column", lg: "row" }}
+      flexDirection={{ base: "column", lg: "column" }}
       w="100%"
+      flex={1}
       m="0 auto"
     >
-      {games.length ? (
+      <Heading textAlign={"center"}>Todays Games</Heading>
+      <Text textAlign={"center"} fontSize={23}>
+        Daily games will be displayed here once schedule is out.
+      </Text>
+      {/* {games.length ? (
         games.map((game: any, i: number) => renderRow(game, i))
       ) : (
         <Spinner
@@ -65,7 +62,7 @@ const TodaysGames = ({
           marginTop={10}
           color="white"
         />
-      )}
+      )} */}
     </Flex>
   );
 };

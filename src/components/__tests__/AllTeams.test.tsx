@@ -1,7 +1,6 @@
 import { render, renderHook, screen, waitFor } from "@testing-library/react";
 import AllTeams from "../AllTeams";
 import axios from "axios";
-import { Context } from "../../context";
 jest.mock("axios");
 
 const dummyTeamList = [
@@ -50,9 +49,13 @@ describe("all teams component", () => {
   test("displays all teams", async () => {
     axios.get.mockResolvedValue({ data: dummyTeamList });
     render(
-      <Context.Provider {...props}>
-        <AllTeams />
-      </Context.Provider>
+        <AllTeams setLoading={() => {}}
+        setTeamName={() => {}}
+        setSelectedTeam={() => {}}
+        teamName={""}
+        playerData={{}}
+        setLast5opp={[]}
+        setShowLast5={false}/>
     );
     const teamList = await waitFor(() => screen.findAllByTestId("team-item"));
     console.log(teamList);
