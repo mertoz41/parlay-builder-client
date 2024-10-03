@@ -4,6 +4,7 @@ import {
   Table,
   Thead,
   Tbody,
+  Box,
   Heading,
   Flex,
   Tr,
@@ -11,7 +12,14 @@ import {
   Skeleton,
   Td,
 } from "@chakra-ui/react";
-const PlayerCard = ({ playerData }: { playerData: any }) => {
+import CloseButton from "./CloseButton";
+const PlayerCard = ({
+  playerData,
+  setPlayerData,
+}: {
+  playerData: any;
+  setPlayerData: any;
+}) => {
   const { seasonStats, img } = playerData;
   const [picLoaded, setPicLoaded] = useState<boolean>(false);
   const renderStats = (title: string, stat: any) => {
@@ -72,9 +80,18 @@ const PlayerCard = ({ playerData }: { playerData: any }) => {
         <Flex
           marginTop={{ base: 5, lg: 0 }}
           flex={1}
-          justifyContent={"flex-end"}
+          justifyContent={"space-between"}
           direction={"column"}
         >
+          <Flex alignSelf={"center"}>
+            <Box />
+            <Heading fontSize={22}>{playerData.fullName}</Heading>
+            <CloseButton
+              action={setPlayerData}
+              setTeamName={() => {}}
+              playerData={playerData}
+            />
+          </Flex>
           {renderTable()}
         </Flex>
       </Flex>

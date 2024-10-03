@@ -46,6 +46,7 @@ const TodaysGames = () => {
       flexDirection={{ base: "column", lg: "column" }}
       w="100%"
       flex={1}
+      color="white"
       m="0 auto"
     >
       <Heading textAlign={"center"}>Todays Games</Heading>

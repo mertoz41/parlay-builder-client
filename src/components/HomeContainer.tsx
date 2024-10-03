@@ -8,6 +8,7 @@ import AllTeams from "./AllTeams";
 import { API_ROOT } from "../utils";
 import PlayerContainer from "./PlayerContainer";
 import Header from "./Header";
+import TeamRoster from "./TeamRoster";
 const HomeContainer = () => {
   useEffect(() => {
     // getGames();
@@ -34,109 +35,8 @@ const HomeContainer = () => {
       });
   };
 
-  const renderTopSection = () => (
-    <>
-      <GridItem
-        rowSpan={{ base: 1, lg: 1 }}
-        colSpan={{ base: 8, lg: 8 }}
-      ></GridItem>
-      <GridItem
-        rowSpan={{ base: 5, lg: 4 }}
-        colSpan={{ base: 8, lg: 8 }}
-        overflow={"auto"}
-      >
-        <Flex>
-          <AllTeams
-            setLoading={setLoading}
-            setTeamName={setTeamName}
-            setSelectedTeam={setSelectedTeam}
-            teamName={teamName}
-            playerData={playerData}
-            setLast5opp={setLast5opp}
-            setShowLast5={setShowLast5}
-          />
 
-          {/* <TodaysGames
-            setTeamName={setTeamName}
-            setSelectedTeam={setSelectedTeam}
-            games={games}
-            /> */}
-        </Flex>
-      </GridItem>
-    </>
-  );
 
-  const renderBottomSection = () => (
-    <GridItem
-      rowSpan={{ base: 7, lg: 6 }}
-      colSpan={{ base: 8, lg: 8 }}
-      overflow={"auto"}
-    >
-      {playerData ? (
-        <PlayerContainer
-          playerData={playerData}
-          last5opp={last5opp}
-          showLast5={showLast5}
-          setShowLast5={setShowLast5}
-          setLoading={setLoading}
-          setPlayerData={setPlayerData}
-        />
-      ) : selectedTeam ? (
-        <Stats
-          title={``}
-          list={selectedTeam}
-          rowNumber={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
-          setLoading={setLoading}
-          setPlayerData={setPlayerData}
-        />
-      ) : mvpList ? (
-        <Stats
-          title={""}
-          setLoading={setLoading}
-          setPlayerData={setPlayerData}
-          list={mvpList}
-          rowNumber={[0, 1, 2, 3, 4]}
-        />
-      ) : (
-        <Flex w={"100%"} justify={"center"} marginTop={10}>
-          <Spinner alignSelf={"center"} color="white" size="xl" />
-        </Flex>
-      )}
-    </GridItem>
-  );
-
-  const renderBottomTitleSection = () => {
-    const clearPlayerData = () => {
-      setPlayerData(null);
-      setLast5opp(null);
-    };
-    return (
-      <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
-        <Flex justify={"center"}>
-          <Heading color={"white"} textAlign={"center"}>
-            {playerData
-              ? playerData.fullName
-              : selectedTeam
-              ? `${teamName} Roster`
-              : "MVP Ladder"}
-          </Heading>
-          {playerData ? (
-            <CloseButton
-              action={clearPlayerData}
-              setTeamName={setTeamName}
-              playerData={playerData}
-            />
-          ) : selectedTeam ? (
-            <CloseButton
-              action={setSelectedTeam}
-              setTeamName={setTeamName}
-              playerData={playerData}
-            />
-          ) : null}
-        </Flex>
-      </GridItem>
-    );
-  };
   const renderHeader = () => (
     <GridItem rowSpan={{ base: 1, lg: 1 }} colSpan={{ base: 8, lg: 8 }}>
       <Header
@@ -175,20 +75,60 @@ const HomeContainer = () => {
     >
       {renderHeader()}
       {renderLeftSide()}
+      {playerData ? (
+        <PlayerContainer
+          playerData={playerData}
+          last5opp={last5opp}
+          showLast5={showLast5}
+          setShowLast5={setShowLast5}
+          setLoading={setLoading}
+          setPlayerData={setPlayerData}
+        />
+      ) : selectedTeam ? (
+        <TeamRoster
+          list={selectedTeam}
+          setTeamName={setTeamName}
+          setLoading={setLoading}
+          setPlayerData={setPlayerData}
+          setSelectedTeam={setSelectedTeam}
+          name={teamName}
+        />
+      ) : (
+        // <GridItem
+        //   backgroundColor={"red"}
+        //   rowSpan={{ base: 1, lg: 12 }}
+        //   colSpan={{ base: 8, lg: 4 }}
+        // >
+        //   <Stats
+        //     title={``}
+        //     list={selectedTeam}
+        //     rowNumber={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
+        //     setLoading={setLoading}
+        //     setPlayerData={setPlayerData}
+        //   />
+        // </GridItem>
+        <>
+          <GridItem
+            backgroundColor={"red"}
+            rowSpan={{ base: 1, lg: 6 }}
+            colSpan={{ base: 8, lg: 4 }}
+          >
+            <TodaysGames />
+          </GridItem>
+          <GridItem
+            color="white"
+            rowSpan={{ base: 1, lg: 6 }}
+            colSpan={{ base: 8, lg: 4 }}
+          >
+            <Heading textAlign={"center"}>MVP Ladder</Heading>
+            <Text textAlign={"center"} fontSize={23}>
+              MVP Ladder will be displayed here once season starts
+            </Text>
+          </GridItem>
+        </>
+      )}
 
-      <GridItem rowSpan={{ base: 1, lg: 6 }} colSpan={{ base: 8, lg: 4 }}>
-        <TodaysGames />
-      </GridItem>
-      <GridItem
-        color="white"
-        rowSpan={{ base: 1, lg: 6 }}
-        colSpan={{ base: 8, lg: 4 }}
-      >
-        <Heading textAlign={"center"}>MVP Ladder</Heading>
-        <Text textAlign={"center"} fontSize={23}>
-          Once season starts, MVP Ladder will be displayed here.
-        </Text>
-        {/* {playerData ? (
+      {/* {playerData ? (
           <PlayerContainer
             playerData={playerData}
             last5opp={last5opp}
@@ -218,7 +158,6 @@ const HomeContainer = () => {
             <Spinner alignSelf={"center"} color="white" size="xl" />
           </Flex>
         )} */}
-      </GridItem>
 
       {/* {renderTopSection()}
       {renderBottomTitleSection()}

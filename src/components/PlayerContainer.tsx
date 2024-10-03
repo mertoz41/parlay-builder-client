@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Heading, Button } from "@chakra-ui/react";
+import { Box, Flex, Heading, Button, GridItem } from "@chakra-ui/react";
 import PlayerCard from "./PlayerCard";
 import Stats from "./Stats";
 const PlayerContainer = ({
@@ -18,15 +18,13 @@ const PlayerContainer = ({
   setPlayerData: any;
 }) => {
   const { seasonStats, last5 } = playerData;
-
   return (
-    <Flex
-      justifyContent={"space-between"}
-      flexDirection={{ base: "column", lg: "row" }}
-      w={"100%"}
-      borderTopWidth={1}
+    <GridItem
+      color={"white"}
+      rowSpan={{ base: 1, lg: 12 }}
+      colSpan={{ base: 8, lg: 4 }}
     >
-      {seasonStats ? <PlayerCard playerData={playerData} /> : null}
+      {seasonStats ? <PlayerCard setPlayerData={setPlayerData} playerData={playerData} /> : null}
       <Box height={"100%"}>
         <Flex color="white" justifyContent={"space-around"}>
           <Button
@@ -83,7 +81,7 @@ const PlayerContainer = ({
           />
         ) : null}
       </Box>
-    </Flex>
+    </GridItem>
   );
 };
 
