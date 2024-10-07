@@ -15,10 +15,10 @@ import {
 import CloseButton from "./CloseButton";
 const PlayerCard = ({
   playerData,
-  setPlayerData,
+  clearPlayer,
 }: {
   playerData: any;
-  setPlayerData: any;
+  clearPlayer: any;
 }) => {
   const { seasonStats, img } = playerData;
   const [picLoaded, setPicLoaded] = useState<boolean>(false);
@@ -51,7 +51,6 @@ const PlayerCard = ({
       <Tbody>
         {renderStats("season", seasonStats.regularSeason)}
         {renderStats("last 5", seasonStats.last5)}
-        {/* {renderStats(`last 5 vs ${next_opponent[0]}`, seasonStats.last5Opp)} */}
       </Tbody>
     </Table>
   );
@@ -65,14 +64,14 @@ const PlayerCard = ({
     >
       <Flex>
         <Skeleton
-          h={{ base: "auto", lg: "100%" }}
-          w={{ base: 100, lg: "auto" }}
+          h={{ base: "auto", lg: 200 }}
+          w={{ base: 100, lg: 150 }}
           isLoaded={picLoaded}
         >
           <Image
             alt="player pic"
             src={img}
-            h={{ base: "auto", lg: "100%" }}
+            h={{ base: "auto", lg: 200 }}
             w={{ base: 100, lg: "auto" }}
             onLoad={() => setPicLoaded(true)}
           />
@@ -87,7 +86,7 @@ const PlayerCard = ({
             <Box />
             <Heading fontSize={22}>{playerData.fullName}</Heading>
             <CloseButton
-              action={setPlayerData}
+              action={clearPlayer}
               setTeamName={() => {}}
               playerData={playerData}
             />

@@ -9,6 +9,7 @@ const PlayerContainer = ({
   setShowLast5,
   setLoading,
   setPlayerData,
+  setLast5opp,
 }: {
   playerData: any;
   last5opp: any;
@@ -16,15 +17,20 @@ const PlayerContainer = ({
   setShowLast5: any;
   setLoading: any;
   setPlayerData: any;
+  setLast5opp: any
 }) => {
+  const clearPlayer = () => {
+    setPlayerData(null)
+    setLast5opp(null)
+  }
   const { seasonStats, last5 } = playerData;
   return (
     <GridItem
       color={"white"}
-      rowSpan={{ base: 1, lg: 12 }}
+      rowSpan={{ base: 1, lg: 9 }}
       colSpan={{ base: 8, lg: 4 }}
     >
-      {seasonStats ? <PlayerCard setPlayerData={setPlayerData} playerData={playerData} /> : null}
+      {seasonStats ? <PlayerCard clearPlayer={clearPlayer} playerData={playerData} /> : null}
       <Box height={"100%"}>
         <Flex color="white" justifyContent={"space-around"}>
           <Button

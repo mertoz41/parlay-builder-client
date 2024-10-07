@@ -2,27 +2,27 @@ import React from "react";
 import { GridItem, Heading, Flex, Box } from "@chakra-ui/react";
 import Stats from "./Stats";
 import CloseButton from "./CloseButton";
-import PlayerContainer from "./PlayerContainer";
 const TeamRoster = ({
   list,
   setLoading,
   setPlayerData,
   name,
   setSelectedTeam,
-  setTeamName
+  setTeamName,
 }: {
   list: any;
   setLoading: any;
   setPlayerData: any;
   name: string;
   setSelectedTeam: any;
-  setTeamName: any
+  setTeamName: any;
 }) => {
   return (
     <GridItem
       color={"white"}
-      rowSpan={{ base: 1, lg: 12 }}
+      rowSpan={{ base: 5, lg: 12 }}
       colSpan={{ base: 8, lg: 4 }}
+      overflow={"auto"}
     >
       <Flex justifyContent="space-around">
         <Box></Box>
