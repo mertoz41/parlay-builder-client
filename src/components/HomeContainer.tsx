@@ -5,6 +5,7 @@ import AllTeams from "./AllTeams";
 import PlayerContainer from "./PlayerContainer";
 import Header from "./Header";
 import TeamRoster from "./TeamRoster";
+import MvpList from "./MvpList";
 const HomeContainer = () => {
   const [selectedTeam, setSelectedTeam] = useState<any>(null);
   const [teamName, setTeamName] = useState<string>("");
@@ -25,28 +26,30 @@ const HomeContainer = () => {
   );
   const renderLeftSide = () => (
     <GridItem
-      rowSpan={{ base: 8, lg: 13 }}
-      colSpan={{ base: 8, lg: 4 }}
-      overflow={"auto"}
+      rowSpan={{ base: 8, lg: 2 }}
+      colSpan={{ base: 8, lg: 8 }}
+      // overflow={"auto"}
     >
-      <Heading color={"white"} textAlign={"center"}>
-        All Teams
-      </Heading>
-      <Heading color={"white"} textAlign={"center"} fontSize={20}>
-        {playerData
+      <Flex>
+        <Flex flex={1} alignSelf={"center"} justifyContent={"center"}>
+          <Heading color={"white"}>All Teams</Heading>
+          {/* <Heading color={"white"} textAlign={"center"} fontSize={20}>
+          {playerData
           ? `Select a team to see ${playerData.fullName}'s last 5 games against them`
           : "Select a team to display the roster"}
-      </Heading>
-      <Flex>
-        <AllTeams
-          setLoading={setLoading}
-          setTeamName={setTeamName}
-          setSelectedTeam={setSelectedTeam}
-          teamName={teamName}
-          playerData={playerData}
-          setLast5opp={setLast5opp}
-          setShowLast5={setShowLast5}
-        />
+          </Heading> */}
+        </Flex>
+        <Flex flex={4} justifyContent={"center"} alignItems={"center"}>
+          <AllTeams
+            setLoading={setLoading}
+            setTeamName={setTeamName}
+            setSelectedTeam={setSelectedTeam}
+            teamName={teamName}
+            playerData={playerData}
+            setLast5opp={setLast5opp}
+            setShowLast5={setShowLast5}
+          />
+        </Flex>
       </Flex>
     </GridItem>
   );
@@ -80,19 +83,33 @@ const HomeContainer = () => {
         />
       ) : (
         <>
-          <GridItem rowSpan={{ base: 3, lg: 6 }} colSpan={{ base: 8, lg: 4 }}>
-            <TodaysGames />
+          <GridItem rowSpan={{ base: 3, lg: 14 }} colSpan={{ base: 8, lg: 8 }}>
+            <Flex flex={1}>
+              <Flex flex={1}>
+                <TodaysGames />
+              </Flex>
+              <Flex flex={1} flexDirection={"column"}>
+                <Heading textAlign={"center"}>MVP Ladder</Heading>
+
+                <MvpList
+                  setPlayerData={setPlayerData}
+                  setLoading={setLoading}
+                />
+              </Flex>
+            </Flex>
+          </GridItem>
+          {/* <GridItem rowSpan={{ base: 3, lg: 6 }} colSpan={{ base: 8, lg: 4 }} backgroundColor={"red"}>
           </GridItem>
           <GridItem
             color="white"
             rowSpan={{ base: 1, lg: 6 }}
+            backgroundColor={"green"}
             colSpan={{ base: 8, lg: 4 }}
           >
             <Heading textAlign={"center"}>MVP Ladder</Heading>
-            <Text textAlign={"center"} fontSize={23}>
-              MVP Ladder will be displayed here once season starts
-            </Text>
-          </GridItem>
+
+            <MvpList setPlayerData={setPlayerData} setLoading={setLoading} />
+          </GridItem> */}
         </>
       )}
     </Grid>

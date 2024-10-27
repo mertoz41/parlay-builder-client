@@ -8,7 +8,6 @@ const Stats = ({
   setPlayerData,
 }: {
   list: any;
-  title: string;
   rowNumber: any;
   setLoading: any;
   setPlayerData: any;
@@ -63,6 +62,7 @@ const Stats = ({
       </Tr>
     );
   };
+
 
   return (
     <Box>

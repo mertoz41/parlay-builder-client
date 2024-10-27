@@ -21,8 +21,10 @@ const TeamRoster = ({
     <GridItem
       color={"white"}
       rowSpan={{ base: 5, lg: 12 }}
-      colSpan={{ base: 8, lg: 4 }}
+      colSpan={{ base: 8, lg: 8 }}
       overflow={"auto"}
+      w={"80%"}
+      m="0 auto"
     >
       <Flex justifyContent="space-around">
         <Box></Box>
@@ -34,7 +36,6 @@ const TeamRoster = ({
         />
       </Flex>
       <Stats
-        title={``}
         list={list}
         rowNumber={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
         setLoading={setLoading}

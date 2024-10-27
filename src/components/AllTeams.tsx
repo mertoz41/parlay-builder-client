@@ -24,7 +24,7 @@ const AllTeams = ({
     getAllTeams();
   }, []);
 
-  const [teams, setTeams] = useState<[]>([]);
+  const [teams, setTeams] = useState<any>([]);
   const getAllTeams = () => {
     axios
       .get(`${API_ROOT}get_all_teams`, {
@@ -56,13 +56,7 @@ const AllTeams = ({
     setLoading(false);
   };
   return (
-    <Flex
-      data-testid="teams"
-      w={"100%"}
-      overflowX={"auto"}
-      justifyContent={"center"}
-      flexWrap={{ base: "wrap", lg: "wrap" }}
-    >
+    <Flex data-testid="teams" overflowX={"auto"}>
       {!teams.length ? (
         <Flex w={"100%"} justify={"center"} marginTop={10}>
           <Spinner alignSelf={"center"} color="white" size="xl" />
@@ -79,7 +73,7 @@ const AllTeams = ({
             _hover={{ backgroundColor: "#595a6b" }}
             borderRadius={20}
           >
-            <Image alt="homepic" w={95} height={95} m="0 auto" src={team.img} />
+            <Image alt="homepic" w={85} height={85} m="0 auto" src={team.img} />
           </Box>
         ))
       )}

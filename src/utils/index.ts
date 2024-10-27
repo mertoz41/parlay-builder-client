@@ -22,6 +22,15 @@ export const getPlayerStats = async (name: string) => {
   // add .catch error handling
 };
 
+export const getMvpList = async () => {
+  return await axios.get(`${API_ROOT}get_mvp_list`, {
+    headers: {"Content-type": "application/json"},
+  })
+  .then((resp: any) => {
+    return resp.data
+  })
+}
+
 export const getTeamPlayers = async (team: string) => {
   let mascot = team.split(" ").pop();
   return await axios

@@ -28,10 +28,12 @@ const PlayerContainer = ({
     <GridItem
       color={"white"}
       rowSpan={{ base: 1, lg: 9 }}
-      colSpan={{ base: 8, lg: 4 }}
+      colSpan={{ base: 8, lg: 8 }}
+       w={"80%"}
+      m="0 auto"
     >
       {seasonStats ? <PlayerCard clearPlayer={clearPlayer} playerData={playerData} /> : null}
-      <Box height={"100%"}>
+      <Box >
         <Flex color="white" justifyContent={"space-around"}>
           <Button
             borderRadius={0}
@@ -71,7 +73,6 @@ const PlayerContainer = ({
         </Flex>
         {last5opp && !showLast5 ? (
           <Stats
-            title={`Last 5 games against`}
             list={last5opp.stats}
             rowNumber={[0, 1, 2, 3, 4]}
             setLoading={setLoading}
@@ -79,7 +80,6 @@ const PlayerContainer = ({
           />
         ) : last5 ? (
           <Stats
-            title="Last 5 games"
             list={last5}
             rowNumber={[0, 1, 2, 3, 4]}
             setLoading={setLoading}
