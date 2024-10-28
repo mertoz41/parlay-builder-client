@@ -22,19 +22,40 @@ export const getPlayerStats = async (name: string) => {
   // add .catch error handling
 };
 
+export const getAllData = async () => {
+  return await axios
+    .get(
+      API_ROOT,
+
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+    .then((resp: any) => {
+      return resp.data;
+    });
+};
+
 export const getMvpList = async () => {
-  return await axios.get(`${API_ROOT}get_mvp_list`, {
-    headers: {"Content-type": "application/json"},
-  })
-  .then((resp: any) => {
-    return resp.data
-  })
-}
+  return await axios
+    .get(`${API_ROOT}get_mvp_list`, {
+      headers: { "Content-type": "application/json" },
+    })
+    .then((resp: any) => {
+      return resp.data;
+    });
+};
 
 export const getTeamPlayers = async (team: string) => {
-  let mascot = team.split(" ").pop();
+  let url;
+  if (team.length < 4) {
+    url = team;
+  } else {
+    let mascot = team.split(" ").pop();
+    url = teamAbbreviations[`${mascot}`];
+  }
   return await axios
-    .get(`${API_ROOT}get_team/${teamAbbreviations[`${mascot}`]}`, {
+    .get(`${API_ROOT}get_team/${url}`, {
       headers: { "Content-Type": "application/json" },
     })
     .then((resp: any) => {
@@ -61,10 +82,9 @@ export const getOpponentStats = async (
     )
     .then((resp: any) => {
       return resp.data.opp_stats;
-      
     })
     .catch((error) => {
-      alert("error occured while fetching this data.")
+      alert("error occured while fetching this data.");
     });
 };
 

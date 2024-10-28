@@ -4,6 +4,7 @@ import { getTeamPlayers, API_ROOT, getOpponentStats } from "../utils";
 import axios from "axios";
 
 const AllTeams = ({
+  teams,
   setLoading,
   setTeamName,
   setSelectedTeam,
@@ -12,6 +13,7 @@ const AllTeams = ({
   setLast5opp,
   setShowLast5,
 }: {
+  teams: any[];
   setLoading: any;
   setTeamName: any;
   setSelectedTeam: any;
@@ -20,20 +22,20 @@ const AllTeams = ({
   setLast5opp: any;
   setShowLast5: any;
 }) => {
-  useEffect(() => {
-    getAllTeams();
-  }, []);
+  // useEffect(() => {
+  //   getAllTeams();
+  // }, []);
 
-  const [teams, setTeams] = useState<any>([]);
-  const getAllTeams = () => {
-    axios
-      .get(`${API_ROOT}get_all_teams`, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((resp: any) => {
-        setTeams(resp.data.teams);
-      });
-  };
+  // const [teams, setTeams] = useState<any>([]);
+  // const getAllTeams = () => {
+  //   axios
+  //     .get(`${API_ROOT}get_all_teams`, {
+  //       headers: { "Content-Type": "application/json" },
+  //     })
+  //     .then((resp: any) => {
+  //       setTeams(resp.data.teams);
+  //     });
+  // };
   const teamAction = async (name: string) => {
     setLoading(true);
 

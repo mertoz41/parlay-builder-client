@@ -63,7 +63,6 @@ const Stats = ({
     );
   };
 
-
   return (
     <Box>
       <Box overflowX={"auto"}>

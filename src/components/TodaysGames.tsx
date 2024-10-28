@@ -1,11 +1,51 @@
 import React from "react";
-import { Box, Heading, Text, Image, Flex } from "@chakra-ui/react";
-import axios from "axios";
-import { API_ROOT, getTeamPlayers } from "../utils";
-const TodaysGames = () => {
+import { Box, Heading, Text, Image, Flex, Spinner } from "@chakra-ui/react";
+import { getTeamPlayers } from "../utils";
+
+const teamNames: any = {
+  ATL: "Atlanta Hawks",
+  BOS: "Boston Celtics",
+  BRK: "Brooklyn Nets",
+  CHO: "Charlotte Hornets",
+  CHI: "Chicago Bulls",
+  CLE: "Cleveland Cavaliers",
+  DAL: "Dallas Mavericks",
+  DEN: "Denver Nuggets",
+  DET: "Detroit Pistons",
+  GSW: "Golden State Warriors",
+  HOU: "Houston Rockets",
+  IND: "Indiana Pacers",
+  LAC: "Los Angeles Clippers",
+  LAL: "Los Angeles Lakers",
+  MEM: "Memphis Grizzlies",
+  MIA: "Miami Heat",
+  MIL: "Milwaukee Bucks",
+  MIN: "Minnesota Timberwolves",
+  NOP: "New Orleans Pelicans",
+  NYK: "New York Knicks",
+  ORL: "Orlando Magic",
+  OKC: "Oklahoma City Thunder",
+  PHI: "Philadelphia 76ers",
+  PHO: "Phoenix Suns",
+  POR: "Portland Trailblazers",
+  SAS: "San Antonio Spurs",
+  SAC: "Sacramento Kings",
+  TOR: "Toronto Raptors",
+  UTA: "Utah Jazz",
+  WAS: "Washington Wizards",
+};
+const TodaysGames = ({
+  games,
+  setTeamName,
+  setSelectedTeam,
+}: {
+  games: any;
+  setTeamName: any;
+  setSelectedTeam: any;
+}) => {
   const renderRow = (item: any, i: number) => {
     const renderTeam = (name: string, pic: string) => (
-      <Box cursor={"pointer"} onClick={() => getTeamPlayers(name)}>
+      <Box cursor={"pointer"} onClick={() => getRoster(name)}>
         <Text color="white" textAlign={"center"} fontSize={24}>
           {name}
         </Text>
@@ -13,10 +53,10 @@ const TodaysGames = () => {
       </Box>
     );
 
-    const getTeamPlayers = async (team: string) => {
-      // const teamInfo: any = await getTeamPlayers(team);
-      // setTeamName(teamInfo.teamName);
-      // setSelectedTeam(teamInfo.roster);
+    const getRoster = async (team: string) => {
+      const teamInfo = await getTeamPlayers(team);
+      setTeamName(teamNames[team]);
+      setSelectedTeam(teamInfo.roster);
     };
     return (
       <Flex
@@ -50,10 +90,7 @@ const TodaysGames = () => {
       m="0 auto"
     >
       <Heading textAlign={"center"}>Todays Games</Heading>
-      <Text textAlign={"center"} fontSize={23}>
-        Daily games will be displayed here once schedule is out.
-      </Text>
-      {/* {games.length ? (
+      {games?.length ? (
         games.map((game: any, i: number) => renderRow(game, i))
       ) : (
         <Spinner
@@ -63,7 +100,7 @@ const TodaysGames = () => {
           marginTop={10}
           color="white"
         />
-      )} */}
+      )}
     </Flex>
   );
 };
