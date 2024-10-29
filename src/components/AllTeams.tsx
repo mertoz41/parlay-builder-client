@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Image, Flex, Spinner } from "@chakra-ui/react";
-import { getTeamPlayers, API_ROOT, getOpponentStats } from "../utils";
-import axios from "axios";
+import { getTeamPlayers, getOpponentStats } from "../utils";
 
 const AllTeams = ({
   teams,
@@ -22,20 +21,6 @@ const AllTeams = ({
   setLast5opp: any;
   setShowLast5: any;
 }) => {
-  // useEffect(() => {
-  //   getAllTeams();
-  // }, []);
-
-  // const [teams, setTeams] = useState<any>([]);
-  // const getAllTeams = () => {
-  //   axios
-  //     .get(`${API_ROOT}get_all_teams`, {
-  //       headers: { "Content-Type": "application/json" },
-  //     })
-  //     .then((resp: any) => {
-  //       setTeams(resp.data.teams);
-  //     });
-  // };
   const teamAction = async (name: string) => {
     setLoading(true);
 

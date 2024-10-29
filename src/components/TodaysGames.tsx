@@ -5,7 +5,7 @@ import { getTeamPlayers } from "../utils";
 const teamNames: any = {
   ATL: "Atlanta Hawks",
   BOS: "Boston Celtics",
-  BRK: "Brooklyn Nets",
+  BKN: "Brooklyn Nets",
   CHO: "Charlotte Hornets",
   CHI: "Chicago Bulls",
   CLE: "Cleveland Cavaliers",
@@ -61,7 +61,7 @@ const TodaysGames = ({
     return (
       <Flex
         key={i}
-        w={{ base: "100%", lg: "20%" }}
+        w={{ base: "100%", lg: "100%" }}
         padding={5}
         borderBottomWidth={0.25}
         justifyContent={"space-around"}
@@ -86,8 +86,11 @@ const TodaysGames = ({
       flexDirection={{ base: "column", lg: "column" }}
       w="100%"
       flex={1}
+      margin={{ base: 0, xl: 5 }}
+      overflow={"auto"}
+      borderRadius={20}
+      backgroundColor={"#595a6b"}
       color="white"
-      m="0 auto"
     >
       <Heading textAlign={"center"}>Todays Games</Heading>
       {games?.length ? (

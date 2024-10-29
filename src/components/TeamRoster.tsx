@@ -23,7 +23,7 @@ const TeamRoster = ({
       rowSpan={{ base: 5, lg: 12 }}
       colSpan={{ base: 8, lg: 8 }}
       overflow={"auto"}
-      w={"80%"}
+      w={"100%"}
       m="0 auto"
     >
       <Flex justifyContent="space-around">
