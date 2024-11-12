@@ -4,7 +4,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Box,
   Heading,
   Flex,
   Tr,
@@ -82,9 +81,11 @@ const PlayerCard = ({
           justifyContent={"space-between"}
           direction={"column"}
         >
-          <Flex alignSelf={"center"}>
-            <Box />
-            <Heading fontSize={22}>{playerData.fullName}</Heading>
+          <Flex justify={"space-between"}>
+            {/* <Box /> */}
+            <Heading fontSize={22} marginLeft={2}>
+              {playerData.fullName}
+            </Heading>
             <CloseButton
               action={clearPlayer}
               setTeamName={() => {}}

@@ -20,20 +20,22 @@ const TeamRoster = ({
   return (
     <GridItem
       color={"white"}
-      rowSpan={{ base: 5, lg: 12 }}
+      rowSpan={{ base: 10, lg: 12 }}
       colSpan={{ base: 8, lg: 8 }}
       overflow={"auto"}
-      w={"100%"}
+      w={{ base: "100%", lg: "80%" }}
       m="0 auto"
     >
       <Flex justifyContent="space-around">
-        <Box></Box>
+        <Box flex={1}></Box>
         <Heading>{name}</Heading>
-        <CloseButton
-          action={setSelectedTeam}
-          setTeamName={setTeamName}
-          playerData={null}
-        />
+        <Box flex={1} justifyContent={"flex-end"}>
+          <CloseButton
+            action={setSelectedTeam}
+            setTeamName={setTeamName}
+            playerData={null}
+          />
+        </Box>
       </Flex>
       <Stats
         list={list}

@@ -1,6 +1,14 @@
 import React from "react";
-import { Box, Heading, Text, Image, Flex, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  Image,
+  Flex,
+  GridItem,
+} from "@chakra-ui/react";
 import { getTeamPlayers } from "../utils";
+import Loading from "./Loading";
 
 const teamNames: any = {
   ATL: "Atlanta Hawks",
@@ -38,31 +46,43 @@ const TodaysGames = ({
   games,
   setTeamName,
   setSelectedTeam,
+  setLoading,
 }: {
   games: any;
   setTeamName: any;
   setSelectedTeam: any;
+  setLoading: any;
 }) => {
-  const renderRow = (item: any, i: number) => {
+  const renderGame = (item: any, i: number) => {
     const renderTeam = (name: string, pic: string) => (
-      <Box cursor={"pointer"} onClick={() => getRoster(name)}>
+      <Flex
+        direction={"column"}
+        flex={1}
+        cursor={"pointer"}
+        paddingX={5}
+        onClick={() => getRoster(name)}
+      >
         <Text color="white" textAlign={"center"} fontSize={24}>
           {name}
         </Text>
         <Image alt="homepic" w={45} height={45} m="0 auto" src={pic} />
-      </Box>
+      </Flex>
     );
 
     const getRoster = async (team: string) => {
+      setLoading(true);
       const teamInfo = await getTeamPlayers(team);
       setTeamName(teamNames[team]);
       setSelectedTeam(teamInfo.roster);
+      setLoading(false);
     };
     return (
       <Flex
         key={i}
-        w={{ base: "100%", lg: "100%" }}
-        padding={5}
+        backgroundColor={"#595a6b"}
+        margin={4}
+        boxShadow={"lg"}
+        borderRadius={20}
         borderBottomWidth={0.25}
         justifyContent={"space-around"}
       >
@@ -81,30 +101,29 @@ const TodaysGames = ({
   };
 
   return (
-    <Flex
-      flexWrap={"wrap"}
-      flexDirection={{ base: "column", lg: "column" }}
-      w="100%"
-      flex={1}
-      margin={{ base: 0, xl: 5 }}
-      overflow={"auto"}
-      borderRadius={20}
-      backgroundColor={"#595a6b"}
-      color="white"
+    <GridItem
+      rowSpan={{ base: 6, lg: 4 }}
+      colSpan={{ base: 8, lg: 8 }}
+      overflowY={{ base: "auto", lg: "hidden" }}
     >
-      <Heading textAlign={"center"}>Todays Games</Heading>
-      {games?.length ? (
-        games.map((game: any, i: number) => renderRow(game, i))
-      ) : (
-        <Spinner
-          alignSelf={"center"}
-          m="0 auto"
-          size="xl"
-          marginTop={10}
-          color="white"
-        />
-      )}
-    </Flex>
+      <Box>
+        <Heading textAlign={"center"} color={"white"}>
+          Todays Games
+        </Heading>
+      </Box>
+
+      <Flex
+        flexDirection={{ base: "column", lg: "row" }}
+        overflowX={{ base: "hidden", lg: "auto" }}
+        overflowY={{ base: "auto", lg: "hidden" }}
+      >
+        {games?.length ? (
+          games.map((game: any, i: number) => renderGame(game, i))
+        ) : (
+          <Loading website="www.foxsports.com" />
+        )}
+      </Flex>
+    </GridItem>
   );
 };
 

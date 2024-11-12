@@ -10,7 +10,7 @@ const Header = ({
   loading: boolean;
   setPlayerData: any;
   setLast5opp: any;
-  setShowLast5: any
+  setShowLast5: any;
 }) => {
   return (
     <Flex
@@ -22,6 +22,7 @@ const Header = ({
         <Heading alignSelf={"center"} color={"white"} backgroundColor={"black"}>
           NBA STATS SCRAPER
         </Heading>
+
         <Box flex={1}>
           {loading ? (
             <Spinner
@@ -33,6 +34,7 @@ const Header = ({
           ) : null}
         </Box>
       </Flex>
+
       <PlayerSearch
         setPlayerData={setPlayerData}
         setLast5opp={setLast5opp}

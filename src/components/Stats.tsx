@@ -28,15 +28,15 @@ const Stats = ({
   };
   const tableRow = (i: number) => {
     return (
-      <Tr key={i}>
+      <Tr
+        key={i}
+        _hover={{ backgroundColor: "#4F5175" }}
+        onClick={() => getStats(list.Player[i])}
+        cursor={"pointer"}
+      >
         {list.Rank ? <Td textAlign={"center"}>{list.Rank[i]}</Td> : null}
         {list.Player ? (
-          <Td
-            textAlign={"center"}
-            onClick={() => getStats(list.Player[i])}
-            cursor={"pointer"}
-            _hover={{ textDecoration: "underline" }}
-          >
+          <Td textAlign={"center"} _hover={{ textDecoration: "underline" }}>
             {list.Player[i]} {list.Team ? list.Team[i] : null}
           </Td>
         ) : null}

@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TodaysGames from "./TodaysGames";
-import {
-  GridItem,
-  Grid,
-  Spinner,
-  Heading,
-  Flex,
-  AlertIcon,
-  Alert,
-} from "@chakra-ui/react";
+import { GridItem, Grid, Heading } from "@chakra-ui/react";
 import AllTeams from "./AllTeams";
 import PlayerContainer from "./PlayerContainer";
 import Header from "./Header";
@@ -16,7 +8,7 @@ import TeamRoster from "./TeamRoster";
 import Stats from "./Stats";
 import { API_ROOT } from "../utils";
 import axios from "axios";
-
+import Loading from "./Loading";
 const HomeContainer = () => {
   const [selectedTeam, setSelectedTeam] = useState<any>(null);
   const [teamName, setTeamName] = useState<string>("");
@@ -59,32 +51,9 @@ const HomeContainer = () => {
       />
     </GridItem>
   );
-  const renderAllTeams = () => (
-    <GridItem rowSpan={{ base: 2, lg: 2 }} colSpan={{ base: 8, lg: 8 }}>
-      <Flex>
-        <Flex flex={1} alignSelf={"center"} justifyContent={"center"}>
-          <Heading color={"white"} fontSize={{ base: 20, xl: 40 }}>
-            All Teams
-          </Heading>
-        </Flex>
-        <Flex flex={4} justifyContent={"center"} alignItems={"center"}>
-          <AllTeams
-            teams={allTeams}
-            setLoading={setLoading}
-            setTeamName={setTeamName}
-            setSelectedTeam={setSelectedTeam}
-            teamName={teamName}
-            playerData={playerData}
-            setLast5opp={setLast5opp}
-            setShowLast5={setShowLast5}
-          />
-        </Flex>
-      </Flex>
-    </GridItem>
-  );
 
   const renderMvpSection = () => (
-    <Flex flex={1} flexDirection={"column"}>
+    <GridItem rowSpan={{ base: 8, lg: 6 }} colSpan={{ base: 8, lg: 8 }}>
       <Heading textAlign={"center"} color={"white"}>
         MVP Ladder
       </Heading>
@@ -96,11 +65,9 @@ const HomeContainer = () => {
           setPlayerData={setPlayerData}
         />
       ) : (
-        <Flex w={"100%"} justify={"center"} marginTop={10}>
-          <Spinner alignSelf={"center"} color="white" size="xl" />
-        </Flex>
+        <Loading website="www.basketball-reference.com" />
       )}
-    </Flex>
+    </GridItem>
   );
   return (
     <Grid
@@ -109,54 +76,48 @@ const HomeContainer = () => {
       templateRows="repeat(14, 1fr)"
       templateColumns="repeat(8, 1fr)"
     >
-      {/* <Alert status="error">
-        <AlertIcon />
-        There was an error processing your request
-      </Alert> */}
       {renderHeader()}
-      {renderAllTeams()}
-      <GridItem
-        rowSpan={{ base: 8, lg: 11 }}
-        colSpan={{ base: 8, lg: 8 }}
-      >
-        {playerData ? (
-          <PlayerContainer
-            playerData={playerData}
-            last5opp={last5opp}
-            setLast5opp={setLast5opp}
-            showLast5={showLast5}
-            setShowLast5={setShowLast5}
-            setLoading={setLoading}
-            setPlayerData={setPlayerData}
-          />
-        ) : selectedTeam ? (
-          <TeamRoster
-            list={selectedTeam}
-            setTeamName={setTeamName}
-            setLoading={setLoading}
-            setPlayerData={setPlayerData}
-            setSelectedTeam={setSelectedTeam}
-            name={teamName}
-          />
-        ) : (
-          <Flex flexDirection={{ base: "column", xl: "row" }}>
-            <TodaysGames
-              setTeamName={setTeamName}
-              setSelectedTeam={setSelectedTeam}
-              games={todaysGames}
-            />
-            {renderMvpSection()}
-          </Flex>
-        )}
-      </GridItem>
-      {/* <GridItem
-        rowSpan={{ base: 3, lg: 14 }}
-        colSpan={{ base: 8, lg: 5 }}
-        margin={{ base: 0, xl: 5 }}
-      >
+      <AllTeams
+        teams={allTeams}
+        setLoading={setLoading}
+        setTeamName={setTeamName}
+        setSelectedTeam={setSelectedTeam}
+        teamName={teamName}
+        playerData={playerData}
+        setLast5opp={setLast5opp}
+        setShowLast5={setShowLast5}
+      />
 
-        
-      </GridItem> */}
+      {playerData ? (
+        <PlayerContainer
+          playerData={playerData}
+          last5opp={last5opp}
+          setLast5opp={setLast5opp}
+          showLast5={showLast5}
+          setShowLast5={setShowLast5}
+          setLoading={setLoading}
+          setPlayerData={setPlayerData}
+        />
+      ) : selectedTeam ? (
+        <TeamRoster
+          list={selectedTeam}
+          setTeamName={setTeamName}
+          setLoading={setLoading}
+          setPlayerData={setPlayerData}
+          setSelectedTeam={setSelectedTeam}
+          name={teamName}
+        />
+      ) : (
+        <>
+          <TodaysGames
+            setTeamName={setTeamName}
+            setSelectedTeam={setSelectedTeam}
+            games={todaysGames}
+            setLoading={setLoading}
+          />
+          {renderMvpSection()}
+        </>
+      )}
     </Grid>
   );
 };

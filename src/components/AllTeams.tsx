@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Box, Image, Flex, Spinner } from "@chakra-ui/react";
+import React from "react";
+import { Box, Image, Flex, Spinner, GridItem, Heading } from "@chakra-ui/react";
 import { getTeamPlayers, getOpponentStats } from "../utils";
+import Loading from "./Loading";
 
 const AllTeams = ({
   teams,
@@ -43,28 +44,47 @@ const AllTeams = ({
     setLoading(false);
   };
   return (
-    <Flex data-testid="teams" overflowX={"auto"}>
+    <GridItem rowSpan={{ base: 1, lg: 3 }} colSpan={{ base: 8, lg: 8 }}>
+      <Heading textAlign={"center"} color={"white"}>
+        All Teams
+      </Heading>
+
       {!teams.length ? (
-        <Flex w={"100%"} justify={"center"} marginTop={10}>
-          <Spinner alignSelf={"center"} color="white" size="xl" />
-        </Flex>
+        <Loading website="www.nba.com" />
       ) : (
-        teams.map((team: any, i: number) => (
-          <Box
-            flexShrink={0}
-            cursor={"pointer"}
-            key={i}
-            data-testid="team-item"
-            onClick={() => teamAction(team.name)}
-            backgroundColor={team.name === teamName ? "#595a6b" : "transparent"}
-            _hover={{ backgroundColor: "#595a6b" }}
-            borderRadius={20}
-          >
-            <Image alt="homepic" w={85} height={85} m="0 auto" src={team.img} />
-          </Box>
-        ))
+        <Flex
+          data-testid="teams"
+          overflowY={"auto"}
+          backgroundColor="#595a6b"
+          marginX={{ base: 0, lg: 4 }}
+          paddingY={2}
+          borderRadius={20}
+        >
+          {teams.map((team: any, i: number) => (
+            <Box
+              flexShrink={0}
+              cursor={"pointer"}
+              key={i}
+              data-testid="team-item"
+              onClick={() => teamAction(team.name)}
+              backgroundColor={
+                team.name === teamName ? "#303147" : "transparent"
+              }
+              _hover={{ backgroundColor: "#303147" }}
+              borderRadius={20}
+            >
+              <Image
+                alt="homepic"
+                w={85}
+                height={85}
+                m="0 auto"
+                src={team.img}
+              />
+            </Box>
+          ))}
+        </Flex>
       )}
-    </Flex>
+    </GridItem>
   );
 };
 

@@ -29,7 +29,7 @@ const PlayerContainer = ({
       color={"white"}
       rowSpan={{ base: 1, lg: 9 }}
       colSpan={{ base: 8, lg: 8 }}
-       w={"90%"}
+       w={{base: "100%", lg: "70%"}}
       m="0 auto"
     >
       {seasonStats ? <PlayerCard clearPlayer={clearPlayer} playerData={playerData} /> : null}
