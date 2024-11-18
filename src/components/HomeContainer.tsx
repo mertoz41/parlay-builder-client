@@ -38,7 +38,7 @@ const HomeContainer = () => {
         setMvpList(resp.data.mvp_list);
         setAllTeams(resp.data.all_teams);
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => alert(error.message));
   };
 
   const renderHeader = () => (

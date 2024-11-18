@@ -3,6 +3,14 @@ import { Box, Image, Flex, Spinner, GridItem, Heading } from "@chakra-ui/react";
 import { getTeamPlayers, getOpponentStats } from "../utils";
 import Loading from "./Loading";
 
+interface Team {
+  name: string;
+  img: string;
+}
+interface PlayerData {
+  img: string;
+  last5: any;
+}
 const AllTeams = ({
   teams,
   setLoading,
@@ -13,25 +21,26 @@ const AllTeams = ({
   setLast5opp,
   setShowLast5,
 }: {
-  teams: any[];
-  setLoading: any;
-  setTeamName: any;
+  teams: Team[];
+  setLoading: (value: boolean) => void;
+  setTeamName: (value: string) => void;
   setSelectedTeam: any;
-  teamName: any;
+  teamName: string;
   playerData: any;
   setLast5opp: any;
   setShowLast5: any;
 }) => {
   const teamAction = async (name: string) => {
     setLoading(true);
-
     if (playerData) {
       let splittedName = playerData.fullName.split(" ");
       let firstName = splittedName[0];
       let lastName = splittedName[1];
       const opponentStats = await getOpponentStats(firstName, lastName, name);
-      setLast5opp({ teamName: name, stats: opponentStats });
-      setShowLast5(false);
+      if (!opponentStats.error) {
+        setLast5opp({ teamName: name, stats: opponentStats });
+        setShowLast5(false);
+      }
       setLoading(false);
     } else {
       getTeamRoster(name);
@@ -39,8 +48,10 @@ const AllTeams = ({
   };
   const getTeamRoster = async (name: string) => {
     setTeamName(name);
-    const teamInfo = await getTeamPlayers(name);
-    setSelectedTeam(teamInfo.roster);
+    const teamInfo: any = await getTeamPlayers(name);
+    if (!teamInfo.error) {
+      setSelectedTeam(teamInfo.roster);
+    }
     setLoading(false);
   };
   return (

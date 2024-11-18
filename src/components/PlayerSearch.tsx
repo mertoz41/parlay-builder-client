@@ -20,9 +20,7 @@ const PlayerSearch = ({
     }
     setLoading(true);
     let stats = await getPlayerStats(fullName);
-    if (stats.error) {
-      alert(stats.error);
-    } else {
+    if (!stats.error) {
       setPlayerData({
         ...stats,
         fullName: fullName,
@@ -30,7 +28,6 @@ const PlayerSearch = ({
       setLast5opp(null);
       setShowLast5(true);
     }
-
     setFullName("");
     setLoading(false);
   };

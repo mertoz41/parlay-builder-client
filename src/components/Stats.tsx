@@ -16,9 +16,7 @@ const Stats = ({
     setLoading(true);
     let playerName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     let stats = await getPlayerStats(playerName.toLowerCase());
-    if (stats.error) {
-      alert(stats.error);
-    } else {
+    if (!stats.error) {
       setPlayerData({
         ...stats,
         fullName: name,

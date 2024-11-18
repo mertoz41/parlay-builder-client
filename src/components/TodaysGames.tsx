@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Heading,
-  Text,
-  Image,
-  Flex,
-  GridItem,
-} from "@chakra-ui/react";
+import { Box, Heading, Text, Image, Flex, GridItem } from "@chakra-ui/react";
 import { getTeamPlayers } from "../utils";
 import Loading from "./Loading";
 
@@ -14,7 +7,9 @@ const teamNames: any = {
   ATL: "Atlanta Hawks",
   BOS: "Boston Celtics",
   BKN: "Brooklyn Nets",
+  BRK: "Brooklyn Nets",
   CHO: "Charlotte Hornets",
+  CHA: "Charlotte Hornets",
   CHI: "Chicago Bulls",
   CLE: "Cleveland Cavaliers",
   DAL: "Dallas Mavericks",
@@ -35,6 +30,7 @@ const teamNames: any = {
   OKC: "Oklahoma City Thunder",
   PHI: "Philadelphia 76ers",
   PHO: "Phoenix Suns",
+  PHX: "Phoenix Suns",
   POR: "Portland Trailblazers",
   SAS: "San Antonio Spurs",
   SAC: "Sacramento Kings",
@@ -71,9 +67,11 @@ const TodaysGames = ({
 
     const getRoster = async (team: string) => {
       setLoading(true);
-      const teamInfo = await getTeamPlayers(team);
-      setTeamName(teamNames[team]);
-      setSelectedTeam(teamInfo.roster);
+      const teamInfo: any = await getTeamPlayers(team);
+      if (!teamInfo.error) {
+        setTeamName(teamNames[team]);
+        setSelectedTeam(teamInfo.roster);
+      }
       setLoading(false);
     };
     return (

@@ -18,8 +18,11 @@ export const getPlayerStats = async (name: string) => {
     )
     .then((resp) => {
       return { ...resp.data, seasonStats: getSeasonStats(resp.data) };
+    })
+    .catch((error) => {
+      alert(error.message);
+      return { error: true };
     });
-  // add .catch error handling
 };
 
 export const getAllData = async () => {
@@ -33,6 +36,10 @@ export const getAllData = async () => {
     )
     .then((resp: any) => {
       return resp.data;
+    })
+    .catch((error) => {
+      alert(error.message);
+      return { error: true };
     });
 };
 
@@ -43,6 +50,10 @@ export const getMvpList = async () => {
     })
     .then((resp: any) => {
       return resp.data;
+    })
+    .catch((error) => {
+      alert(error.message);
+      return { error: true };
     });
 };
 
@@ -60,6 +71,10 @@ export const getTeamPlayers = async (team: string) => {
     })
     .then((resp: any) => {
       return { teamName: resp.data.team_name, roster: resp.data.roster };
+    })
+    .catch((error) => {
+      alert(error.message);
+      return { error: true };
     });
 };
 
@@ -84,7 +99,8 @@ export const getOpponentStats = async (
       return resp.data.opp_stats;
     })
     .catch((error) => {
-      alert("error occured while fetching this data.");
+      alert(error.message);
+      return { error: true };
     });
 };
 
